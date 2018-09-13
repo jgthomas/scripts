@@ -17,7 +17,7 @@ INPUT="$1"
 OUTPUT="$2"
 
 # Test variables
-INTERNAL_SCSI="/dev/sd[a,b,c,d]"
+INTERNAL_SCSI="/dev/sd[a]"
 
 usage()
 {
