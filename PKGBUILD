@@ -6,7 +6,7 @@ arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('')
-source=("")
+source=("${pkgname}")
 md5sums=('')
 
 
