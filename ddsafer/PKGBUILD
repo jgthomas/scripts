@@ -1,0 +1,22 @@
+# Contributor: James Thomas <notrevolution at google dot com>
+pkgname=ddsafer
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Makes dd safer through a series of sanity checks and confirmations"
+arch=('any')
+url="N/A"
+license=('GPL3')
+depends=('ncurses')
+source=("ddsafer")
+md5sums=('SKIP')
+
+
+package() {
+
+        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+
+        chmod +x "$pkgdir/usr/bin/${pkgname}"
+
+}
+
+
