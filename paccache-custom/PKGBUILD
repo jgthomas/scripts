@@ -1,0 +1,20 @@
+pkgname=paccache-custom
+pkgver=1.0
+pkgrel=1
+pkgdesc="Custom timer units for paccache"
+arch=('any')
+url="https://github.com/jgthomas/scripts"
+license=('GPL3')
+depends=('pacman-contrib')
+source=("paccache-custom.service" "paccache-custom.timer")
+md5sums=('SKIP' 'SKIP')
+
+
+package() {
+
+        install -Dm 644 "$srcdir/paccache-custom.service" "$pkgdir/usr/lib/systemd/system/paccache-custom.service"
+        install -Dm 644 "$srcdir/paccache-custom.timer" "$pkgdir/usr/lib/systemd/system/paccache-custom.timer"
+
+}
+
+
