@@ -1,0 +1,22 @@
+pkgname=my-pacman-hooks
+pkgver=1.0
+pkgrel=1
+pkgdesc="Hooks for pacman"
+arch=('any')
+url="https://github.com/jgthomas/scripts"
+license=('GPL3')
+depends=('pacman-contrib' 'reflector')
+source=("mirrorupgrade.hook" "clearcache.hook")
+md5sums=('SKIP' 'SKIP')
+
+
+package() {
+
+        mkdir -p "/etc/pacman.d/hooks"
+
+        install -Dm 644 "$srcdir/mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/mirrorupgrade.hook"
+        install -Dm 644 "$srcdir/clearcache.hook" "$pkgdir/etc/pacman.d/hooks/clearcache.hook"
+
+}
+
+
