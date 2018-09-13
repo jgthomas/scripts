@@ -1,0 +1,5 @@
+#!/bin/bash
+
+PACKAGES="${HOME}/newNextcloud/pacman_repo/Packages/*.pkg.tar.xz"
+
+paccache -r -k 2 -c $PACKAGES

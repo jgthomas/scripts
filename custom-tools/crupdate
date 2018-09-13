@@ -1,0 +1,6 @@
+#!/bin/bash
+
+DATABASE="${HOME}/newNextcloud/pacman_repo/custom.repo.db.tar.gz"
+PACKAGES="${HOME}/newNextcloud/pacman_repo/Packages/*.pkg.tar.xz"
+
+repo-add $DATABASE $PACKAGES
