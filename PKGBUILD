@@ -7,7 +7,7 @@ url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('')
 source=("${pkgname}")
-md5sums=('')
+md5sums=('SKIP')
 
 
 package() {
