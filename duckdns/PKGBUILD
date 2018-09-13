@@ -1,13 +1,13 @@
-pkgname=
-pkgver=
-pkgrel=
-pkgdesc=""
+pkgname=duckdns
+pkgver=1.0
+pkgrel=1
+pkgdesc="Simple DDNS service"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('')
-source=("${pkgname}")
-md5sums=('SKIP')
+depends=('curl')
+source=("duckdns.service" "duckdns.timer" "duck.log" "duck.sh")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
