@@ -5,7 +5,6 @@ pkgdesc="Simple python webserver for files in current directory"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('')
 source=("${pkgname}")
 md5sums=('SKIP')
 
