@@ -1,0 +1,20 @@
+pkgname=addcustom
+pkgver=1.0
+pkgrel=1
+pkgdesc="Add a package to the custom repository"
+arch=('any')
+url="https://github.com/jgthomas/scripts"
+license=('GPL3')
+source=("${pkgname}")
+md5sums=('SKIP')
+
+
+package() {
+
+        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+
+        chmod +x "$pkgdir/usr/bin/${pkgname}"
+
+}
+
+

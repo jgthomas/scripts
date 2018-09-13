@@ -1,5 +1,5 @@
 all: clean
-	makepkg
+	makepkg --config /etc/makepkg-custom.conf
 
 clean:
 	rm -rf src/
