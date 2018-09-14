@@ -1,5 +1,7 @@
+
 all: clean
-	makepkg --config /etc/makepkg-custom.conf
+	export PKGDEST=$(CURDIR) && makepkg
+	unset PKGDEST
 
 clean:
 	rm -rf src/
