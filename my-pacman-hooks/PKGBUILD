@@ -1,13 +1,16 @@
 pkgname=my-pacman-hooks
-pkgver=1.0
+pkgver=1.2
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('pacman-contrib' 'reflector')
-source=("mirrorupgrade.hook" "clearcache.hook")
-md5sums=('SKIP' 'SKIP')
+source=("mirrorupgrade.hook"
+        "clearcache.hook"
+        "clearcustomcache.hook"
+        "clearaurcache.hook")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
@@ -16,6 +19,8 @@ package() {
 
         install -Dm 644 "$srcdir/mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/mirrorupgrade.hook"
         install -Dm 644 "$srcdir/clearcache.hook" "$pkgdir/etc/pacman.d/hooks/clearcache.hook"
+        install -Dm 644 "$srcdir/clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/clearcustomcache.hook"
+        install -Dm 644 "$srcdir/clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/clearaurcache.hook"
 
 }
 
