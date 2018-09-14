@@ -1,6 +1,0 @@
-[Unit]
-Description=Discard unused packages
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/paccache --remove --keep 2 --cachedir /home/james/newNextCloud/pacman_repo --cachedir /home/james/packages
