@@ -6,6 +6,6 @@ Type = Package
 Target = *
 
 [Action]
-Description = AUR: Keep the last cache and the currently installed.
+Description = Custom: Keep the last cache and the currently installed.
 When = PostTransaction
 Exec = /usr/bin/paccache -rvk2 -c /home/james/newNextcloud/pacman_repo
