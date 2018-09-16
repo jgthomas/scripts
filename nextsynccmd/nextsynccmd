@@ -1,0 +1,4 @@
+#!/bin/bash
+[[ -f ${HOME}/.credentials ]] && . ${HOME}/.credentials
+
+nextcloudcmd -u $NEXTCLOUD_USER -p $NEXTCLOUD_APP_PASSWORD $LOCAL_NEXTCLOUD $REMOTE_NEXTCLOUD
