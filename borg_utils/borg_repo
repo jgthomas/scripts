@@ -1,0 +1,70 @@
+#!/bin/bash
+
+[[ -f /home/james/.credentials ]] \
+        && . /home/james/.credentials \
+        || { echo "Credentials not found"; exit 1; }
+
+
+[[ ! $# -eq 2 ]] && { echo "Not enough arguments"; exit 1; }
+
+
+list() {
+        borg list --remote-path=borg1 \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+check() {
+        borg check --remote-path=borg1 \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+delete() {
+        borg delete --remote-path=borg1 \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+create() {
+        borg init --remote-path=borg1 --encryption=keyfile \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+
+case "$1" in
+        "create")
+                create "$2"
+                exit 0
+                ;;
+esac
+
+
+
+case "$2" in
+        "newArch-home")
+                export BORG_PASSPHRASE=$HOME_PASSPHRASE
+                ;;
+        "newArch-system")
+                export BORG_PASSPHRASE=$SYSTEM_PASSPHRASE
+                ;;
+        *)
+                { echo "'$2' is not a repo"; exit 1; }
+                ;;
+esac
+
+
+case "$1" in
+        "list")
+                list "$2"
+                ;;
+        "check")
+                check "$2"
+                ;;
+        "delete")
+                delete "$2"
+                ;;
+        *)
+                { echo "Illegal operation"; exit 1; }
+                ;;
+esac
+
+unset BORG_PASSPHRASE
+exit 0

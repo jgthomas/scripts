@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# See here for details: https://www.rsync.net/resources/howto/ssh_keys.html
+
+# To copy the initial ssh key to rsync.net
+# scp ~/.ssh/id_rsa.pub $RSYNC_DOT_NET_USER@RSYNC_DOT_NET_DOMAIN:.ssh/authorized_keys
+
+## To copy subsequent keys pass key path and name to this script
+
+[[ -f /home/james/.credentials ]] \
+        && . /home/james/.credentials \
+        || { echo "Credentials not found"; exit 1; }
+
+cat "$1" | ssh $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN \
+        'dd of=.ssh/authorized_keys oflag=append conv=notrunc'
