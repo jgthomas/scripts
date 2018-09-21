@@ -3,6 +3,6 @@ Description=Duck DNS Updater
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /usr/bin/duck.sh >/dev/null 2>&1
+ExecStart=/bin/bash /usr/bin/duckdns >/dev/null 2>&1
 
 

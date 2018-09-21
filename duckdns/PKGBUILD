@@ -1,18 +1,23 @@
-pkgname=
-pkgver=
-pkgrel=
-pkgdesc=""
+pkgname=duckdns
+pkgver=1.0
+pkgrel=1
+pkgdesc="Dynamic DNS with Duck DNS"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('')
-source=("${pkgname}")
-md5sums=('SKIP')
+source=("${pkgname}"
+        "duck.log"
+        "duckdns.service"
+        "duckdns.timer")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
         install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+        install -D -m644 "$srcdir/duck.log" "$pkgdir/var/log/duckdns/duck.log"
+        install -D -m644 "$srcdir/duckdns.service" "$pkgdir/usr/lib/systemd/system/duckdns.service"
+        install -D -m644 "$srcdir/duckdns.timer" "$pkgdir/usr/lib/systemd/system/duckdns.timer"
 
         chmod +x "$pkgdir/usr/bin/${pkgname}"
 
