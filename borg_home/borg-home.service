@@ -1,0 +1,7 @@
+[Unit]
+Description=Backup /home/james to rsync.net
+
+[Service]
+User=james
+Type=simple
+ExecStart=/bin/bash /usr/bin/borg_home

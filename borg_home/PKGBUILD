@@ -1,0 +1,22 @@
+pkgname=borg_home
+pkgver=1.0
+pkgrel=2
+pkgdesc="Backup the home directory to rsync.net"
+arch=('any')
+license=('GPL3')
+source=("${pkgname}" borg-home.service borg-home.timer)
+md5sums=('SKIP' 'SKIP' 'SKIP')
+
+
+package() {
+
+        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+
+        chmod +x "$pkgdir/usr/bin/${pkgname}"
+
+        install -D -m644 "$srcdir/borg-home.service" "$pkgdir/usr/lib/systemd/system/borg-home.service"
+        install -D -m644 "$srcdir/borg-home.timer" "$pkgdir/usr/lib/systemd/system/borg-home.timer"
+
+}
+
+

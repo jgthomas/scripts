@@ -1,0 +1,44 @@
+#!/bin/bash
+
+[[ -f /home/james/.credentials ]] \
+        && . /home/james/.credentials \
+        || { echo "Credentials not found"; exit 1; }
+
+# Target on rsync.net
+REPOSITORY=$RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:$HOME_REPO
+
+# Archive naming convention
+ARCHIVE='home-{now:%a%d%b%Y-%R}'
+
+# Encryption keyfile passphrase
+export BORG_PASSPHRASE=$HOME_PASSPHRASE
+
+# Backup the home directory, excluding VMs, downloads,
+# and various cache and trash directories
+borg create -v --stats --remote-path=borg1                  \
+        $REPOSITORY::$ARCHIVE                               \
+        /home/james                                         \
+        --exclude /home/james/Downloads                     \
+        --exclude /home/james/.cache                        \
+        --exclude /home/james/.thumbnails                   \
+        --exclude /home/james/.config/chromium              \
+        --exclude /home/james/.local/share/Trash            \
+        --exclude /home/james/.local/share/gvfs-metadata    \
+        --exclude /home/james/.mozilla                      \
+        --exclude /home/james/LOCAL/kvm-virtual-machines    \
+        --exclude /home/james/LOCAL/kvm-shared-folder       \
+        --exclude /home/james/LOCAL/iso
+        
+# Keep the final backup made on each of the last:
+#
+# *10 days* (for which backups were made)
+#
+# *8 weeks* (prior to those 30 days, during which backups were made)
+#
+# *3 months* (prior to those 6 weeks, during which backups were made)
+#
+borg prune -v --list --remote-path=borg1 $REPOSITORY --prefix 'home-' \
+        --keep-daily=10 --keep-weekly=8 --keep-monthly=3
+
+
+unset BORG_PASSPHRASE
