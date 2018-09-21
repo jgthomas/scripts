@@ -1,7 +1,6 @@
 
 all: clean
-	export PKGDEST=$(CURDIR) && makepkg
-	unset PKGDEST
+	makepkg
 
 clean:
 	rm -rf src/
