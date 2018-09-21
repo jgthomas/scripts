@@ -1,0 +1,42 @@
+#!/bin/bash
+
+[[ -f /home/james/.credentials ]] \
+        && . /home/james/.credentials \
+        || { echo "Credentials not found"; exit 1; }
+
+# Target on rsync.net
+REPOSITORY=$RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:$SYSTEM_REPO
+
+# Archive naming convention
+ARCHIVE='system-{now:%a%d%b%Y-%R}'
+
+# Encryption keyfile passphrase
+export BORG_PASSPHRASE=$SYSTEM_PASSPHRASE
+
+# Backup the whole system, excluding /home and various temporary,
+# special system, and external mounting directories
+borg create -v --stats --remote-path=borg1                  \
+        $REPOSITORY::$ARCHIVE                               \
+        /                                                   \
+        --exclude /home                                     \
+        --exclude /dev                                      \
+        --exclude /proc                                     \
+        --exclude /sys                                      \
+        --exclude /tmp                                      \
+        --exclude /run                                      \
+        --exclude /mnt                                      \
+        --exclude /media                                    \
+        --exclude /lost+found
+        
+# Keep the final backup made on each of the last:
+#
+# *10 days* (for which backups were made)
+#
+# *8 weeks* (prior to those 30 days, during which backups were made)
+#
+# *3 months* (prior to those 6 weeks, during which backups were made)
+#
+borg prune -v --list --remote-path=borg1 $REPOSITORY --prefix 'system-' \
+        --keep-daily=10 --keep-weekly=8 --keep-monthly=3
+
+unset BORG_PASSPHRASE

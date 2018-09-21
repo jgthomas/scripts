@@ -1,0 +1,22 @@
+pkgname=borg_system
+pkgver=1.0
+pkgrel=1
+pkgdesc="Backup the system to rsync.net"
+arch=('any')
+license=('GPL3')
+source=("${pkgname}" borg-system.service borg-system.timer)
+md5sums=('SKIP' 'SKIP' 'SKIP')
+
+
+package() {
+
+        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+
+        chmod +x "$pkgdir/usr/bin/${pkgname}"
+
+        install -D -m644 "$srcdir/borg-system.service" "$pkgdir/usr/lib/systemd/system/borg-system.service"
+        install -D -m644 "$srcdir/borg-system.timer" "$pkgdir/usr/lib/systemd/system/borg-system.timer"
+
+}
+
+

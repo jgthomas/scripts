@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup system to rsync.net
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/bin/borg_system

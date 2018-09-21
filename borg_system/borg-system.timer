@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup system to rsync.net
+
+[Timer]
+OnCalendar=*-*-* 00:20:00
+Persistent=True
+Unit=borg-system.service
+
+[Install]
+WantedBy=timers.target
