@@ -23,13 +23,13 @@ case $operation in
 esac
 
 
-[[ $# -lt 3 ]] && { echo "Not enough arguments"; exit 1; }
-
-
 set_passphrase $repo
 
 
 case $operation in
+        "create")
+                create $repo
+                ;;
         "list")
                 list $repo $archive
                 ;;
