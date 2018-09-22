@@ -10,6 +10,9 @@
 [[ ! $# -eq 2 ]] && { echo "Not enough arguments"; exit 1; }
 
 
+operation="$1"
+repo="$2"
+
 
 list() {
         borg list --remote-path=borg1 \
@@ -32,9 +35,9 @@ create() {
 }
 
 
-case "$1" in
+case $operation in
         "create")
-                create "$2"
+                create $repo
                 exit 0
                 ;;
 esac
@@ -62,15 +65,15 @@ set_passphrase "$2"
 #esac
 
 
-case "$1" in
+case $operation in
         "list")
-                list "$2"
+                list $repo
                 ;;
         "check")
-                check "$2"
+                check $repo
                 ;;
         "delete")
-                delete "$2"
+                delete $repo
                 ;;
         *)
                 { echo "Illegal operation"; exit 1; }
