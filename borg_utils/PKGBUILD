@@ -1,5 +1,5 @@
 pkgname=borg_backup_utils
-pkgver=2.0
+pkgver=2.1
 pkgrel=1
 pkgdesc="Backup utility scripts for borg on rsync.net"
 arch=('any')
