@@ -22,7 +22,7 @@ case $operation in
 esac
 
 
-set_passphrase "$2"
+set_passphrase $repo
 
 
 case $operation in
