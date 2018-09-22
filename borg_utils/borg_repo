@@ -45,6 +45,12 @@ case "$2" in
         "newArch-system")
                 export BORG_PASSPHRASE=$SYSTEM_PASSPHRASE
                 ;;
+        "nextcloud")
+                export BORG_PASSPHRASE=$NEXTCLOUD_PASSPHRASE
+                ;;
+        "Sync")
+                export BORG_PASSPHRASE=$SYNC_PASSPHRASE
+                ;;
         *)
                 { echo "'$2' is not a repo"; exit 1; }
                 ;;
