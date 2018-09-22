@@ -4,61 +4,7 @@
         && . /home/james/.credentials \
         || { echo "Credentials not found"; exit 1; }
 
-
-list() {
-        borg list --remote-path=borg1 \
-                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
-}
-
-
-check() {
-        borg check --remote-path=borg1 \
-                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
-}
-
-
-delete() {
-        borg delete --remote-path=borg1 \
-                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
-}
-
-
-mount() {
-        mkdir -p /tmp/borg_backup
-        borg mount --remote-path=borg1 \
-                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" \
-                /tmp/borg_backup
-}
-
-
-unmount() {
-        if [[ -d /tmp/borg_backup ]]; then
-                fusermount -u /tmp/borg_backup && rmdir /tmp/borg_backup
-        else
-                echo 'No backup mounted'
-        fi
-}
-
-
-rename() {
-        if [[ $# -eq 3 ]]; then
-                borg info --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" "$3"
-        else
-                { echo "Not enough arguments to rename"; exit 1; }
-        fi
-}
-
-
-extract() {
-        if [[ $# -eq 2 ]]; then
-                borg extract -v --list --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" 
-        elif [[ $# -eq 3 ]]; then
-                borg extract --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" "$3"
-        fi
-}
+. borg_utils_shared
 
 
 case "$1" in
@@ -72,23 +18,7 @@ esac
 [[ $# -lt 3 ]] && { echo "Not enough arguments"; exit 1; }
 
 
-case "$2" in
-        "newArch-home")
-                export BORG_PASSPHRASE=$HOME_PASSPHRASE
-                ;;
-        "newArch-system")
-                export BORG_PASSPHRASE=$SYSTEM_PASSPHRASE
-                ;;
-        "nextcloud")
-                export BORG_PASSPHRASE=$NEXTCLOUD_PASSPHRASE
-                ;;
-        "Sync")
-                export BORG_PASSPHRASE=$SYNC_PASSPHRASE
-                ;;
-        *)
-                { echo "'$2' is not a repo"; exit 1; }
-                ;;
-esac
+set_passphrase "$2"
 
 
 operation="$1"
