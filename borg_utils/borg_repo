@@ -4,7 +4,8 @@
         && . ${HOME}/.credentials \
         || { echo "Credentials not found"; exit 1; }
 
-. borg_utils_shared
+
+[[ -f /usr/lib/borg_utils_shared ]] && . /usr/lib/borg_utils_shared
 
 
 [[ ! $# -eq 2 ]] && { echo "Not enough arguments"; exit 1; }
@@ -40,5 +41,8 @@ case $operation in
                 ;;
 esac
 
+
 unset BORG_PASSPHRASE
+
+
 exit 0
