@@ -90,7 +90,7 @@ unmount() {
 
 rename() {
         if [[ $# -eq 3 ]]; then
-                borg info --remote-path=borg1 \
+                borg rename --remote-path=borg1 \
                         $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" "$3"
         else
                 { echo "Not enough arguments to rename"; exit 1; }
