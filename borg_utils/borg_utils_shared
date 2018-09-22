@@ -21,3 +21,27 @@ set_passphrase() {
                         ;;
         esac
 }
+
+
+list() {
+        borg list --remote-path=borg1 \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+
+check() {
+        borg check --remote-path=borg1 \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+
+delete() {
+        borg delete --remote-path=borg1 \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
+
+
+create() {
+        borg init --remote-path=borg1 --encryption=keyfile \
+                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+}
