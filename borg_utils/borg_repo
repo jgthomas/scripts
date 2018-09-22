@@ -1,7 +1,7 @@
 #!/bin/bash
 
-[[ -f /home/james/.credentials ]] \
-        && . /home/james/.credentials \
+[[ -f ${HOME}/.credentials ]] \
+        && . ${HOME}/.credentials \
         || { echo "Credentials not found"; exit 1; }
 
 . borg_utils_shared
