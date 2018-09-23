@@ -29,7 +29,7 @@ set_passphrase() {
 
 usage() {
         echo ""
-        echo "Usage: borgctl COMMAND REQUIRED [OPTIONAL]"
+        echo "Usage: borgctl command REQUIRED [OPTIONAL]"
         echo ""
         printf '%-10s%-10s%-10s%-20s%-10s \n' "init" "REPO" "" "" "create new repo"
         printf '%-10s%-10s%-10s%-20s%-10s \n' "list" "REPO" "[ARCHIVE]" "" "list contents of repo or archive"
