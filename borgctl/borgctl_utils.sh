@@ -89,7 +89,7 @@ delete() {
 
 ## Functions only for REPOS
 
-create() {
+init() {
 
         new_repo_name="$1"
 
