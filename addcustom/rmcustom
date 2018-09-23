@@ -1,0 +1,8 @@
+#!/bin/bash
+
+REPO_DIR="/home/james/newNextcloud/pacman_repo"
+REPO_NAME="custom.db.tar.gz"
+PACKAGE_NAME="$1"
+
+
+repo-remove $REPO_DIR/$REPO_NAME $PACKAGE_NAME && echo "Removed: '$PACKAGE_NAME'"
