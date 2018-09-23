@@ -1,6 +1,10 @@
 #!/bin/bash
 
 
+BORG_OPTIONS="--remote-path=borg1"
+BORG_PATH="$RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN"
+
+
 set_passphrase() {
         
         case "$1" in
@@ -27,12 +31,14 @@ set_passphrase() {
 ## Functions for REPOS and ARCHIVES
 
 list() {
-        if [[ $# -eq 1 ]]; then
-                borg list --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
-        elif [[ $# -eq 2 ]]; then
-                borg list --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
+
+        repo="$1"
+        archive="$2"
+
+        if [[ ! -z $archive ]]; then
+                borg list $BORG_OPTIONS $BORG_PATH:"$1"::"$2"
+        else
+                borg list $BORG_OPTIONS $BORG_PATH:"$1"
         fi
 }
 
