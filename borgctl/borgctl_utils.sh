@@ -56,12 +56,14 @@ check() {
 
 
 delete() {
-        if [[ $# -eq 1 ]]; then
-                borg delete --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
-        elif [[ $# -eq 2 ]]; then
-                borg delete --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
+
+        repo="$1"
+        archive="$2"
+
+        if [[ ! -z $archive ]]; then
+                borg delete $BORG_OPTIONS $BORG_PATH:$repo::$archive
+        else
+                borg delete $BORG_OPTIONS $BORG_PATH:$repo
         fi
 }
 
