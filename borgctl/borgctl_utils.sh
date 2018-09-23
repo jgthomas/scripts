@@ -31,7 +31,7 @@ usage() {
         echo ""
         echo "Usage: borgctl COMMAND REQUIRED [OPTIONAL]"
         echo ""
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "create" "REPO" "" "" "create new repo"
+        printf '%-10s%-10s%-10s%-20s%-10s \n' "init" "REPO" "" "" "create new repo"
         printf '%-10s%-10s%-10s%-20s%-10s \n' "list" "REPO" "[ARCHIVE]" "" "list contents of repo or archive"
         printf '%-10s%-10s%-10s%-20s%-10s \n' "check" "REPO" "[ARCHIVE]" "" "verify integrity of repo or archive"
         printf '%-10s%-10s%-10s%-20s%-10s \n' "delete" "REPO" "[ARCHIVE]" "" "delete repo or archive"
