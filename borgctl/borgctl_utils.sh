@@ -23,9 +23,6 @@ set_passphrase() {
                 $SYNC_REPO)
                         export BORG_PASSPHRASE=$SYNC_PASSPHRASE
                         ;;
-                *)
-                        { echo "'$1' is not a repo"; exit 1; }
-                        ;;
         esac
 }
 
