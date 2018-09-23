@@ -1,6 +1,6 @@
 pkgname=borgctl
 pkgver=2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Backup utility scripts for borg on rsync.net"
 arch=('any')
 license=('GPL3')
