@@ -1,4 +1,4 @@
-pkgname=borg_backup_utils
+pkgname=borgctl
 pkgver=4.0
 pkgrel=1
 pkgdesc="Backup utility scripts for borg on rsync.net"
@@ -14,8 +14,9 @@ md5sums=('SKIP' 'SKIP' 'SKIP')
 package() {
 
         install -D -m644 "$srcdir/borgctl" "$pkgdir/usr/bin/borgctl"
-        install -D -m644 "$srcdir/borgctl_utils.sh" "$pkgdir/usr/lib/borgctl_utils.sh"
         install -D -m644 "$srcdir/key_transfer_rsdn" "$pkgdir/usr/bin/key_transfer_rsdn"
+
+        install -D -m644 "$srcdir/borgctl_utils.sh" "$pkgdir/usr/lib/borgctl_utils.sh"
 
         chmod +x "$pkgdir/usr/bin/borgctl"
         chmod +x "$pkgdir/usr/bin/key_transfer_rsdn"
