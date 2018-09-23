@@ -1,26 +1,23 @@
 pkgname=borg_backup_utils
-pkgver=3.2
+pkgver=4.0
 pkgrel=1
 pkgdesc="Backup utility scripts for borg on rsync.net"
 arch=('any')
 license=('GPL3')
 depends=('borg' 'fuse2')
-source=("borg_archive"
-        "borg_repo"
-        "borg_utils_shared"
+source=("borgctl"
+        "borgctl_utils"
         "key_transfer_rsdn")
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
+md5sums=('SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
-        install -D -m644 "$srcdir/borg_archive" "$pkgdir/usr/bin/borg_archive"
-        install -D -m644 "$srcdir/borg_repo" "$pkgdir/usr/bin/borg_repo"
-        install -D -m644 "$srcdir/borg_utils_shared" "$pkgdir/usr/lib/borg_utils_shared"
+        install -D -m644 "$srcdir/borgctl" "$pkgdir/usr/bin/borgctl"
+        install -D -m644 "$srcdir/borgctl_utils" "$pkgdir/usr/lib/borgctl_utils"
         install -D -m644 "$srcdir/key_transfer_rsdn" "$pkgdir/usr/bin/key_transfer_rsdn"
 
-        chmod +x "$pkgdir/usr/bin/borg_archive"
-        chmod +x "$pkgdir/usr/bin/borg_repo"
+        chmod +x "$pkgdir/usr/bin/borgctl"
         chmod +x "$pkgdir/usr/bin/key_transfer_rsdn"
 
 }
