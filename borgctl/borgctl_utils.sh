@@ -4,6 +4,7 @@
 BORG_OPTIONS="--remote-path=borg1"
 INIT_OPTIONS="--encryption=keyfile"
 BORG_PATH="$RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN"
+BORG_TEMP_DIR="/tmp/borg_backup"
 
 
 set_passphrase() {
@@ -85,18 +86,23 @@ create() {
 ## Functions only for ARCHIVES
 
 mount() {
-        mkdir -p /tmp/borg_backup
-        borg mount --remote-path=borg1 \
-                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" \
-                /tmp/borg_backup
+
+        repo="$1"
+        archive="$2"
+
+        [[ -z $archive ]] && { echo "Must specify an archive to mount"; exit 1; }
+
+        mkdir -p $BORG_TEMP_DIR
+        borg mount $BORG_OPTIONS $BORG_PATH:$repo::$archive $BORG_TEMP_DIR
 }
 
 
 unmount() {
-        if [[ -d /tmp/borg_backup ]]; then
-                fusermount -u /tmp/borg_backup && rmdir /tmp/borg_backup
+
+        if [[ -d $BORG_TEMP_DIR ]]; then
+                fusermount -u $BORG_TEMP_DIR && rmdir $BORG_TEMP_DIR
         else
-                echo 'No backup mounted'
+                echo "No backup mounted"
         fi
 }
 
