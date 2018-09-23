@@ -27,8 +27,8 @@ case $operation in
                 unmount
                 exit 0
                 ;;
-        "create")
-                create $repo
+        "init")
+                init $repo
                 exit 0
                 ;;
 esac
