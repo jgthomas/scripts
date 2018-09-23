@@ -94,9 +94,9 @@ delete() {
 
 create() {
 
-        repo="$1"
+        new_repo_name="$1"
 
-        borg init $BORG_OPTIONS $INIT_OPTIONS $BORG_PATH:$repo
+        borg init $BORG_OPTIONS $INIT_OPTIONS $BORG_PATH:$new_repo_name
 }
 
 
@@ -108,7 +108,7 @@ mount() {
         repo="$1"
         archive="$2"
 
-        [[ -z $archive ]] && { echo "Must specify an archive to mount"; exit 1; }
+        [[ -z $archive ]] && { usage; exit 1; }
 
         mkdir -p $BORG_TEMP_DIR
         borg mount $BORG_OPTIONS $BORG_PATH:$repo::$archive $BORG_TEMP_DIR
@@ -131,8 +131,8 @@ rename() {
         archive="$2"
         new_name="$3"
 
-        [[ -z $archive ]] && { echo "Must specify an archive to rename"; exit 1; }
-        [[ -z $new_name ]] && { echo "Must provide a new name for archive"; exit 1; }
+        [[ -z $archive ]] && { usage; exit 1; }
+        [[ -z $new_name ]] && { usage; exit 1; }
 
         borg rename $BORG_OPTIONS $BORG_PATH:$repo::$archive $new_name
 }
@@ -143,6 +143,9 @@ extract() {
         repo="$1"
         archive="$2"
         path="$3"
+
+        [[ -z $archive ]] && { usage; exit 1; }
+        [[ -z $path ]] && { usage; exit 1; }
 
         if [[ ! -z $path ]]; then
                 borg extract $EXTRACT_OPTIONS $BORG_OPTIONS $BORG_PATH:$repo::$archive $path
