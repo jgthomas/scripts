@@ -2,6 +2,7 @@
 
 
 BORG_OPTIONS="--remote-path=borg1"
+INIT_OPTIONS="--encryption=keyfile"
 BORG_PATH="$RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN"
 
 
@@ -21,7 +22,7 @@ set_passphrase() {
                         export BORG_PASSPHRASE=$SYNC_PASSPHRASE
                         ;;
                 *)
-                        { echo "'$2' is not a repo"; exit 1; }
+                        { echo "'$1' is not a repo"; exit 1; }
                         ;;
         esac
 }
@@ -73,8 +74,10 @@ delete() {
 ## Functions only for REPOS
 
 create() {
-        borg init --remote-path=borg1 --encryption=keyfile \
-                $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
+
+        repo="$1"
+
+        borg init $BORG_OPTIONS $INIT_OPTIONS $BORG_PATH:$repo
 }
 
 
