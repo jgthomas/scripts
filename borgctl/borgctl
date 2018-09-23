@@ -5,7 +5,7 @@
         || { echo "Credentials not found"; exit 1; }
 
 
-[[ -f /usr/lib/borg_utils_shared ]] && . /usr/lib/borg_utils_shared
+[[ -f /usr/lib/borgctl_utils.sh ]] && . /usr/lib/borgctl_utils.sh
 
 
 operation="$1"
