@@ -16,8 +16,16 @@ new_name="$4"
 
 
 case $operation in
+        "help")
+                usage
+                exit 0
+                ;;
         "unmount")
                 unmount
+                exit 0
+                ;;
+        "create")
+                create $repo
                 exit 0
                 ;;
 esac
@@ -27,9 +35,6 @@ set_passphrase $repo
 
 
 case $operation in
-        "create")
-                create $repo
-                ;;
         "list")
                 list $repo $archive
                 ;;
@@ -49,7 +54,7 @@ case $operation in
                 rename $repo $archive $new_name
                 ;;
         *)
-                { echo "Illegal operation"; exit 1; }
+                { usage; exit 1; }
                 ;;
 esac
 
