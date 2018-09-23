@@ -15,7 +15,7 @@ path="$4"
 new_name="$4"
 
 
-[[ -z $operation ]] && { usage; exit 1 }
+[[ -z $operation ]] && { usage; exit 1; }
 
 
 case $operation in
