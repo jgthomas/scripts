@@ -8,6 +8,9 @@
 [[ -f /usr/lib/borgctl_utils.sh ]] && . /usr/lib/borgctl_utils.sh
 
 
+program=$(basename "$0")
+
+
 operation="$1"
 repo="$2"
 archive="$3"
