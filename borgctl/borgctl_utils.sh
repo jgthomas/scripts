@@ -3,6 +3,7 @@
 
 BORG_OPTIONS="--remote-path=borg1"
 INIT_OPTIONS="--encryption=keyfile"
+EXTRACT_OPTIONS="-v --list"
 BORG_PATH="$RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN"
 BORG_TEMP_DIR="/tmp/borg_backup"
 
@@ -121,11 +122,14 @@ rename() {
 
 
 extract() {
-        if [[ $# -eq 2 ]]; then
-                borg extract -v --list --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
-        elif [[ $# -eq 3 ]]; then
-                borg extract --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" "$3"
+
+        repo="$1"
+        archive="$2"
+        path="$3"
+
+        if [[ ! -z $path ]]; then
+                borg extract $EXTRACT_OPTIONS $BORG_OPTIONS $BORG_PATH:$repo::$archive $path
+        else
+                borg extract $EXTRACT_OPTIONS $BORG_OPTIONS $BORG_PATH:$repo::$archive
         fi
 }
