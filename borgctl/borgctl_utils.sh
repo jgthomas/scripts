@@ -30,6 +30,20 @@ set_passphrase() {
 }
 
 
+usage() {
+        echo "Usage: borgctl COMMAND [OPTIONS]"
+        echo ""
+        echo "unmount"
+        echo "create REPO"
+        echo "list REPO [ARCHIVE]"
+        echo "check REPO [ARCHIVE]"
+        echo "delete REPO [ARCHIVE]"
+        echo "mount REPO [ARCHIVE]"
+        echo "extract REPO ARCHIVE [PATH]"
+        echo "rename REPO ARCHIVE NEW_NAME"
+        echo ""
+}
+
 
 ## Functions for REPOS and ARCHIVES
 
