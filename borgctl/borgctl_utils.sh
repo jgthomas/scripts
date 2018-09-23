@@ -142,7 +142,6 @@ extract() {
         path="$3"
 
         [[ -z $archive ]] && { usage; exit 1; }
-        [[ -z $path ]] && { usage; exit 1; }
 
         if [[ ! -z $path ]]; then
                 borg extract $EXTRACT_OPTIONS $BORG_OPTIONS $BORG_PATH:$repo::$archive $path
