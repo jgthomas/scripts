@@ -31,16 +31,19 @@ set_passphrase() {
 
 
 usage() {
-        echo "Usage: borgctl COMMAND [OPTIONS]"
         echo ""
-        echo "unmount"
-        echo "create REPO"
-        echo "list REPO [ARCHIVE]"
-        echo "check REPO [ARCHIVE]"
-        echo "delete REPO [ARCHIVE]"
-        echo "mount REPO [ARCHIVE]"
-        echo "extract REPO ARCHIVE [PATH]"
-        echo "rename REPO ARCHIVE NEW_NAME"
+        echo "Usage: borgctl COMMAND [OPTION]"
+        echo ""
+        printf '%-10s%-10s \n' "unmount"
+        printf '%-10s%-10s \n' "create" "REPO"
+        printf '%-10s%-10s%-10s \n' "list" "REPO" "[ARCHIVE]"
+        printf '%-10s%-10s%-10s \n' "check" "REPO" "[ARCHIVE]"
+        printf '%-10s%-10s%-10s \n' "delete" "REPO" "[ARCHIVE]"
+        printf '%-10s%-10s%-10s \n' "mount" "REPO" "[ARCHIVE]"
+        printf '%-10s%-10s%-10s%-10s \n' "extract" "REPO" "ARCHIVE" "[PATH]"
+        printf '%-10s%-10s%-10s%-10s \n' "rename" "REPO" "ARCHIVE" "NEW_NAME"
+        echo ""
+        echo "help - display this message"
         echo ""
 }
 
