@@ -28,20 +28,16 @@ set_passphrase() {
 
 
 usage() {
-        echo ""
-        echo "Usage: $program command REQUIRED [OPTIONAL]"
-        echo ""
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "init" "REPO" "" "" "create new repo"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "list" "REPO" "[ARCHIVE]" "" "list contents of repo or archive"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "check" "REPO" "[ARCHIVE]" "" "verify integrity of repo or archive"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "delete" "REPO" "[ARCHIVE]" "" "delete repo or archive"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "mount" "REPO" "ARCHIVE" "" "mount archive"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "unmount" "" "" "" "unmount last mounted archive"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "extract" "REPO" "ARCHIVE" "[PATH]" "extract archive or path into current directory"
-        printf '%-10s%-10s%-10s%-20s%-10s \n' "rename" "REPO" "ARCHIVE" "NEW_NAME" "rename archive"
-        echo ""
-        echo "help - display this message"
-        echo ""
+        printf "\nUsage: $program command [target] [subtarget] [param]\n\n"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "init" "REPO" "" "" "create new repo"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "list" "REPO" "[ARCHIVE]" "" "list contents of repo or archive"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "check" "REPO" "[ARCHIVE]" "" "verify integrity of repo or archive"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "delete" "REPO" "[ARCHIVE]" "" "delete repo or archive"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "mount" "REPO" "ARCHIVE" "" "mount archive"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "unmount" "" "" "" "unmount last mounted archive"
+        printf '%-10s%-10s%-20s%-20s%-10s \n' "extract" "REPO" "ARCHIVE" "[PATH]" "extract archive or path into current directory"
+        printf '%-10s%-10s%-20s%-20s%-10s \n\n' "rename" "REPO" "ARCHIVE" "NEW_NAME" "rename archive"
+        printf '%-10s%-10s%-20s%-20s%-10s \n\n' "help" "" "" "" "display this message"
 }
 
 
