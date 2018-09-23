@@ -108,12 +108,15 @@ unmount() {
 
 
 rename() {
-        if [[ $# -eq 3 ]]; then
-                borg rename --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2" "$3"
-        else
-                { echo "Not enough arguments to rename"; exit 1; }
-        fi
+
+        repo="$1"
+        archive="$2"
+        new_name="$3"
+
+        [[ -z $archive ]] && { echo "Must specify an archive to rename"; exit 1; }
+        [[ -z $new_name ]] && { echo "Must provide a new name for archive"; exit 1; }
+
+        borg rename $BORG_OPTIONS $BORG_PATH:$repo::$archive $new_name
 }
 
 
