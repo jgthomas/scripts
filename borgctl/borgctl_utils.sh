@@ -36,19 +36,21 @@ list() {
         archive="$2"
 
         if [[ ! -z $archive ]]; then
-                borg list $BORG_OPTIONS $BORG_PATH:"$1"::"$2"
+                borg list $BORG_OPTIONS $BORG_PATH:$repo::$archive
         else
-                borg list $BORG_OPTIONS $BORG_PATH:"$1"
+                borg list $BORG_OPTIONS $BORG_PATH:$repo
         fi
 }
 
 check() {
-        if [[ $# -eq 1 ]]; then
-                borg check --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"
-        elif [[ $# -eq 2 ]]; then
-                borg check --remote-path=borg1 \
-                        $RSYNC_DOT_NET_USER@$RSYNC_DOT_NET_DOMAIN:"$1"::"$2"
+
+        repo="$1"
+        archive="$2"
+
+        if [[ ! -z $archive ]]; then
+                borg check $BORG_OPTIONS $BORG_PATH:$repo::$archive
+        else
+                borg check $BORG_OPTIONS $BORG_PATH:$repo
         fi
 }
 
