@@ -4,16 +4,16 @@
 set_passphrase() {
         
         case "$1" in
-                "newArch-home")
+                $HOME_REPO)
                         export BORG_PASSPHRASE=$HOME_PASSPHRASE
                         ;;
-                "newArch-system")
+                $SYSTEM_REPO)
                         export BORG_PASSPHRASE=$SYSTEM_PASSPHRASE
                         ;;
-                "nextcloud")
+                $NEXTCLOUD_REPO)
                         export BORG_PASSPHRASE=$NEXTCLOUD_PASSPHRASE
                         ;;
-                "Sync")
+                $SYNC_REPO)
                         export BORG_PASSPHRASE=$SYNC_PASSPHRASE
                         ;;
                 *)
