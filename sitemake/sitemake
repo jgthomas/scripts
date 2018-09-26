@@ -16,12 +16,23 @@ do_conversions() {
 }
 
 
+add_custom_css() {
+        sed -i 's/<\/style>/<\/style>\n<link rel="stylesheet" href="index.css">/' "$1"
+}
+
+
+augment_html() {
+        add_custom_css "$1"
+}
+
+
 for note in *
 do
         if [[ -d "$note" ]]; then
                 if [[ -f "$note/$note.tex" ]]; then
                         ( cd "$note" && \
                           do_conversions "$note.tex" && \
+                          augment_html "${note%.*}.html" && \
                           mv "${note%.*}.html" "../docs" )
                 fi
         fi
