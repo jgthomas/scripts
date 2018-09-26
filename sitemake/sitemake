@@ -1,0 +1,28 @@
+#!/bin/bash
+
+
+to_html() {
+        pandoc -s "$1" -o "${1%.*}.html"
+}
+
+
+to_markdown() {
+        pandoc -s "${1%.*}.html" -o "readme.md"
+}
+
+
+do_conversions() {
+        to_html "$1" && to_markdown "${1%.*}.html"
+}
+
+
+for note in *
+do
+        if [[ -d "$note" ]]; then
+                if [[ -f "$note/$note.tex" ]]; then
+                        ( cd $note && \
+                          do_conversions "$note.tex" \
+                          && mv ${note%.*}.html ../docs )
+                fi
+        fi
+done
