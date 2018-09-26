@@ -20,9 +20,9 @@ for note in *
 do
         if [[ -d "$note" ]]; then
                 if [[ -f "$note/$note.tex" ]]; then
-                        ( cd $note && \
+                        ( cd "$note" && \
                           do_conversions "$note.tex" && \
-                          mv ${note%.*}.html ../docs )
+                          mv "${note%.*}.html" "../docs" )
                 fi
         fi
 done
