@@ -21,8 +21,8 @@ do
         if [[ -d "$note" ]]; then
                 if [[ -f "$note/$note.tex" ]]; then
                         ( cd $note && \
-                          do_conversions "$note.tex" \
-                          && mv ${note%.*}.html ../docs )
+                          do_conversions "$note.tex" && \
+                          mv ${note%.*}.html ../docs )
                 fi
         fi
 done
