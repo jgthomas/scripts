@@ -43,7 +43,9 @@ update_single_page() {
 update_all_pages() {
         for note in *
         do
-                cd "$note" && update_single_page && cd ..
+                if [[ -d "$note" ]]; then
+                        cd "$note" && update_single_page && cd ..
+                fi
         done
 }
 
