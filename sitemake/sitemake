@@ -3,6 +3,7 @@
 
 NOTE_DIR="/home/james/latex_projects/notes"
 HTML_DIR="/home/james/latex_projects/notes/docs"
+MD_FILE="readme.md"
 
 
 to_html() {
@@ -11,7 +12,7 @@ to_html() {
 
 
 to_markdown() {
-        pandoc -s "${1%.*}.html" -o "readme.md"
+        pandoc -s "${1%.*}.html" -o "$MD_FILE"
 }
 
 
