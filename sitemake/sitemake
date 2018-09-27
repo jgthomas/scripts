@@ -1,6 +1,10 @@
 #!/bin/bash
 
 
+NOTE_DIR="/home/james/latex_projects/notes"
+HTML_DIR="/home/james/latex_projects/notes/docs"
+
+
 to_html() {
         pandoc -s "$1" -o "${1%.*}.html"
 }
@@ -34,7 +38,7 @@ update_single_page() {
                 if [[ -f "$target.tex" ]]; then
                         do_conversions "$target.tex" && \
                         augment_html "$target.html" && \
-                        mv "$target.html" "../docs"
+                        mv "$target.html" "$HTML_DIR"
                 fi
         done
 }
