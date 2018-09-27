@@ -45,6 +45,7 @@ update_single_page() {
 
 
 update_all_pages() {
+        cd "$NOTE_DIR"
         for note in *
         do
                 if [[ -d "$note" ]]; then
