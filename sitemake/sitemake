@@ -26,14 +26,33 @@ augment_html() {
 }
 
 
-for note in *
-do
-        if [[ -d "$note" ]]; then
-                if [[ -f "$note/$note.tex" ]]; then
-                        ( cd "$note" && \
-                          do_conversions "$note.tex" && \
-                          augment_html "${note%.*}.html" && \
-                          mv "${note%.*}.html" "../docs" )
+update_single_page() {
+        target="${PWD##*/}"
+
+        for file in *
+        do
+                if [[ -f "$target.tex" ]]; then
+                        do_conversions "$target.tex" && \
+                        augment_html "$target.html" && \
+                        mv "$target.html" "../docs"
                 fi
-        fi
-done
+        done
+}
+
+
+update_all_pages() {
+        for note in *
+        do
+                cd "$note" && update_single_page && cd ..
+        done
+}
+
+
+case "$1" in
+        "all")
+                update_all_pages
+                ;;
+        *)
+                update_single_page
+                ;;
+esac
