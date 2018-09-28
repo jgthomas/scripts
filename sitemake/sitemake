@@ -12,6 +12,13 @@ is_new_note() {
 }
 
 
+place_note_in_index() {
+        note_name="$(echo "$1" | sed 's/_/ /g')"
+        note_url="$1.html"
+        sed -i 's/<ul id="notes-list">/<ul id="notes-list">\n <li><a class="note-link" href="$note_url">$note_name<\/a><\/li>/' "$HTML_DIR/index.html"
+}
+
+
 to_html() {
         pandoc -s "$1" -o "${1%.*}.html"
 }
@@ -46,8 +53,15 @@ update_single_page() {
                         do_conversions "$target.tex" && \
                         augment_html "$target.html" && \
                         mv "$target.html" "$HTML_DIR"
+
                 fi
         done
+
+        is_new_note "$target"
+
+        if [[ $? -gt 0 ]]; then
+                place_note_in_index "$target"
+        fi
 }
 
 
