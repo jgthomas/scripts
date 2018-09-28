@@ -59,7 +59,7 @@ update_single_page() {
 
         is_new_note "$target"
 
-        if [[ $? -gt 0 ]]; then
+        if [[ $? -gt 0 && -f "$HTML_DIR/$target.html" ]]; then
                 place_note_in_index "$target"
         fi
 }
