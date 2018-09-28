@@ -50,7 +50,7 @@ update_all_pages() {
         for note in *
         do
                 if [[ -d "$note" ]]; then
-                        cd "$note" && update_single_page && cd ..
+                        cd "$note" && update_single_page && cd "$NOTE_DIR"
                 fi
         done
 }
