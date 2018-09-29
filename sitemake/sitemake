@@ -15,7 +15,11 @@ is_new_note() {
 place_note_in_index() {
         note_name="$(echo "$1" | sed 's/_/ /g')"
         note_url="$1.html"
-        sed -i "s/<ul id=\"notes-list\">/<ul id=\"notes-list\">\n <li><a class=\"note-link\" href=\"$note_url\">$note_name<\/a><\/li>/" "$HTML_DIR/index.html"
+
+        old_start="<ul id=\"notes-list\">"
+        new_entry="<li><a class=\"note-link\" href=\"$note_url\">$note_name<\/a><\/li>"
+
+        sed -i "s/$old_start/$old_start\n $new_entry/" "$HTML_DIR/index.html"
 }
 
 
