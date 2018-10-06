@@ -15,9 +15,9 @@ runclass="org.junit.runner.JUnitCore"
 
 usage() {
         printf "\nUsage: $program command action target\n\n"
-        printf '%-10s%-10s%-15s%-20s%-10s \n\n' "help" "" "" "" "display this message"
-        printf '%-10s%-10s%-15s%-20s%-10s \n' "compile" "TestClassName.java" "" "" "compile the tests"
-        printf '%-10s%-10s%-15s%-20s%-10s \n' "run" "TestClassName" "" "" "run the tests"
+        printf '%-10s%-10s%-15s \n' "help" "" "display this message"
+        printf '%-10s%-10s%-15s \n' "compile" "TestClassName.java" "compile the tests"
+        printf '%-10s%-10s%-15s \n' "run" "TestClassName" "run the tests"
 }
 
 
