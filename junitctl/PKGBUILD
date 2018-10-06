@@ -1,0 +1,21 @@
+pkgname=junitctl
+pkgver=0.1
+pkgrel=1
+pkgdesc="Script to control junit from command line and outside of any IDE"
+arch=('any')
+url="https://github.com/jgthomas/scripts"
+license=('GPL3')
+depends=('java-environment' 'junit' 'java-hamcrest')
+source=("${pkgname}")
+md5sums=('SKIP')
+
+
+package() {
+
+        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+
+        chmod +x "$pkgdir/usr/bin/${pkgname}"
+
+}
+
+
