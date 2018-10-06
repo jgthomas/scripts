@@ -14,10 +14,10 @@ runclass="org.junit.runner.JUnitCore"
 
 
 usage() {
-        printf "\nUsage: $program command action target\n\n"
-        printf '%-10s%-10s%-15s \n' "help" "" "display this message"
-        printf '%-10s%-10s%-15s \n' "compile" "TestClassName.java" "compile the tests"
-        printf '%-10s%-10s%-15s \n' "run" "TestClassName" "run the tests"
+        printf "\nUsage: $program command [target]\n\n"
+        printf '%-10s%-25s%-25s \n' "help" "" "display this message"
+        printf '%-10s%-25s%-25s \n' "compile" "TestClassName.java" "compile the tests"
+        printf '%-10s%-25s%-25s \n' "run" "TestClassName" "run the tests"
 }
 
 
@@ -28,8 +28,12 @@ case "$action" in
         run)
                 java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "${testclass%.*}"
                 ;;
+        help)
+                usage
+                ;;
         *)
                 echo "Unrecognised action: $1"
                 usage
+                exit 1
                 ;;
 esac
