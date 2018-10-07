@@ -38,7 +38,11 @@ compile() {
 
 
 run() {
-        java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "$1"
+        if [[ -f "${1%.*}.class" ]]; then
+                java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "$1"
+        else
+                echo "junit tests '$1' not found"
+        fi
 }
 
 
