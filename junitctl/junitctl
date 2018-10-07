@@ -5,8 +5,11 @@
 #
 
 program=$(basename "$0")
+
 action="$1"
-testclass="$2"
+sourcefile="${2%.*}.java"
+classfile="${2%.*}.class"
+testclass="${2%.*}"
 
 junit="/usr/share/java/junit-4.12.jar"
 hamcrest="/usr/share/java/hamcrest/core-1.3.jar"
@@ -34,8 +37,8 @@ clean() {
 
 
 compile() {
-        if [[ -f "$1" ]]; then
-                javac -classpath "$(pwd)":"$junit" "$1"
+        if [[ -f "$sourcefile" ]]; then
+                javac -classpath "$(pwd)":"$junit" "$sourcefile"
         else
                 echo "File '$1' not found"
         fi
@@ -43,16 +46,16 @@ compile() {
 
 
 run() {
-        if [[ -f "${1%.*}.class" ]]; then
-                java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "$1"
+        if [[ -f "$classfile" ]]; then
+                java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "$testclass"
         else
-                echo "junit tests '$1' not found"
+                echo "junit tests '$testclass' not found"
         fi
 }
 
 
 error_exit() {
-        echo "Unrecognised command: '$1'"
+        echo "Unrecognised command: '$action'"
         usage
         exit 1
 }
@@ -60,13 +63,13 @@ error_exit() {
 
 case "$action" in
         compile)
-                clean && compile "$testclass"
+                clean && compile
                 ;;
         run)
-                run "${testclass%.*}"
+                run
                 ;;
         full)
-                clean && compile "$testclass" && run "${testclass%.*}"
+                clean && compile && run
                 ;;
         clean)
                 clean
@@ -75,6 +78,6 @@ case "$action" in
                 usage
                 ;;
         *)
-                error_exit "$action"
+                error_exit
                 ;;
 esac
