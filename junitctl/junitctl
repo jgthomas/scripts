@@ -21,6 +21,7 @@ usage() {
         printf '%-10s%-25s%-25s \n' "clean" "" "delete all compiled files"
         printf '%-10s%-25s%-25s \n' "compile" "TestClassName.java" "compile the tests"
         printf '%-10s%-25s%-25s \n' "run" "TestClassName" "run the tests"
+        printf '%-10s%-25s%-25s \n' "full" "TestClassName.java" "compile and run the tests"
 }
 
 
@@ -63,6 +64,9 @@ case "$action" in
                 ;;
         run)
                 run "${testclass%.*}"
+                ;;
+        full)
+                clean && compile "$testclass" && run "${testclass%.*}"
                 ;;
         clean)
                 clean
