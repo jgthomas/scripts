@@ -16,6 +16,7 @@ runclass="org.junit.runner.JUnitCore"
 usage() {
         printf "\nUsage: $program command [target]\n\n"
         printf '%-10s%-25s%-25s \n' "help" "" "display this message"
+        printf '%-10s%-25s%-25s \n' "clean" "" "delete all compiled files"
         printf '%-10s%-25s%-25s \n' "compile" "TestClassName.java" "compile the tests"
         printf '%-10s%-25s%-25s \n' "run" "TestClassName" "run the tests"
 }
@@ -27,6 +28,9 @@ case "$action" in
                 ;;
         run)
                 java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "${testclass%.*}"
+                ;;
+        clean)
+                rm -f *.class
                 ;;
         help)
                 usage
