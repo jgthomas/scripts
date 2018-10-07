@@ -12,6 +12,8 @@ junit="/usr/share/java/junit-4.12.jar"
 hamcrest="/usr/share/java/hamcrest/core-1.3.jar"
 runclass="org.junit.runner.JUnitCore"
 
+compiled='*.class *.jar'
+
 
 usage() {
         printf "\nUsage: $program command [target]\n\n"
@@ -23,7 +25,7 @@ usage() {
 
 
 clean() {
-        for file in *.class
+        for file in $compiled
         do
                 rm -f "$file"
         done
