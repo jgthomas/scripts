@@ -50,6 +50,13 @@ run() {
 }
 
 
+error_exit() {
+        echo "Unrecognised action: $1"
+        usage
+        exit 1
+}
+
+
 case "$action" in
         compile)
                 clean && compile "$testclass"
@@ -64,8 +71,6 @@ case "$action" in
                 usage
                 ;;
         *)
-                echo "Unrecognised action: $1"
-                usage
-                exit 1
+                error_exit "$action"
                 ;;
 esac
