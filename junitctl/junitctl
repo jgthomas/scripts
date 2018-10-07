@@ -32,12 +32,22 @@ clean() {
 }
 
 
+compile() {
+        javac -classpath "$(pwd)":"$junit" "$1"
+}
+
+
+run() {
+        java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "$1"
+}
+
+
 case "$action" in
         compile)
-                javac -classpath "$(pwd)":"$junit" "$testclass"
+                clean && compile "$testclass"
                 ;;
         run)
-                java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "${testclass%.*}"
+                run "${testclass%.*}"
                 ;;
         clean)
                 clean
