@@ -22,6 +22,14 @@ usage() {
 }
 
 
+clean() {
+        for file in *.class
+        do
+                rm -f "$file"
+        done
+}
+
+
 case "$action" in
         compile)
                 javac -classpath "$(pwd)":"$junit" "$testclass"
@@ -30,7 +38,7 @@ case "$action" in
                 java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "${testclass%.*}"
                 ;;
         clean)
-                rm -f *.class
+                clean
                 ;;
         help)
                 usage
