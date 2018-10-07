@@ -1,0 +1,46 @@
+#!/bin/bash
+
+program=$(basename "$0")
+action="$1"
+sourcefile="$1"
+
+
+usage() {
+        printf "\nUsage: $program [command] [target]\n\n"
+        printf '%-10s%-25s%-25s \n' "help" "" "display this message"
+        printf '%-10s%-25s%-25s \n' "File.java" "" "make javadoc for the specified file"
+        printf '%-10s%-25s%-25s \n' "all" "" "make javadoc for every .java file in directory"
+}
+
+
+make_docs() {
+        javadoc -d docs_${1%.*} -html5 "$1"
+}
+
+
+make_all_docs() {
+        for file in *.java
+        do
+                make_docs "$file"
+        done
+}
+
+
+error_exit() {
+        echo "Unrecognised command: '$action'"
+        usage
+        exit 1
+}
+
+
+case "$action" in
+        all)
+                make_all_docs
+                ;;
+        help)
+                usage
+                ;;
+        *)
+                make_docs "$sourcefile"
+                ;;
+esac
