@@ -1,5 +1,5 @@
 pkgname=junitctl
-pkgver=0.8
+pkgver=0.9
 pkgrel=1
 pkgdesc="Script to control junit from command line and outside of any IDE"
 arch=('any')
