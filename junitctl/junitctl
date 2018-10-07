@@ -33,7 +33,11 @@ clean() {
 
 
 compile() {
-        javac -classpath "$(pwd)":"$junit" "$1"
+        if [[ -f "$1" ]]; then
+                javac -classpath "$(pwd)":"$junit" "$1"
+        else
+                echo "File '$1' not found"
+        fi
 }
 
 
