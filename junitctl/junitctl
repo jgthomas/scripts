@@ -51,7 +51,7 @@ run() {
 
 
 error_exit() {
-        echo "Unrecognised action: $1"
+        echo "Unrecognised command: '$1'"
         usage
         exit 1
 }
