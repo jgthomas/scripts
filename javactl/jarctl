@@ -15,6 +15,7 @@
 #
 
 COMPILED='*.jar'
+MANIFEST="Manifest.txt"
 
 program=$(basename "$0")
 action="$1"
@@ -32,10 +33,23 @@ clean() {
 
 
 create_jar() {
-        entry_point="${1%.*}"
+
+        use_manifest=false
+
+        if [[ "$1" = "$MANIFEST" ]]; then
+                use_manifest=true
+                shift
+        else
+                entry_point="${1%.*}"
+        fi
+
         jar_name="${1%.*}.jar"
 
-        jar cvfe "$jar_name" "$entry_point" "$@"
+        if [[ "$use_manifest" = true ]]; then
+                jar cvfm "$jar_name" "$MANIFEST" "$@"
+        else
+                jar cvfe "$jar_name" "$entry_point" "$@"
+        fi
 }
 
 
