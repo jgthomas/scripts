@@ -18,6 +18,7 @@ COMPILED='*.jar'
 MANIFEST="Manifest.txt"
 JAR_CREATE="jar cvf"
 JAR_UPDATE="jar uvf"
+JAR_EXTRACT="jar xvf"
 USE_MANIFEST="m"
 USE_ENTRY_POINT="e"
 
@@ -25,11 +26,21 @@ program=$(basename "$0")
 action="$1"
 
 
+if [[ "$action" != "create" && "action" != "update" ]]; then
+        shift
+fi
+
+
 clean() {
         for file in $COMPILED
         do
                 rm -f "$file"
         done
+}
+
+
+extract() {
+        $JAR_EXTRACT "$@"
 }
 
 
@@ -64,6 +75,9 @@ case "$action" in
                 ;;
         clean)
                 clean
+                ;;
+        extract)
+                extract "$@"
                 ;;
         *)
                 echo "Error!"
