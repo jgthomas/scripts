@@ -47,11 +47,19 @@ compile() {
 
 
 run() {
-        if [[ -f "$classfile" ]]; then
-                java -classpath "$(pwd)":"$JUNIT":"$HAMCREST" "$RUNCLASS" "$testclass"
+        if [[ -f "${1}.class" ]]; then
+                java -classpath "$(pwd)":"$JUNIT":"$HAMCREST" "$RUNCLASS" "$1"
         else
-                echo "junit tests '$testclass' not found"
+                echo "junit tests '$1' not found"
         fi
+}
+
+
+run_all() {
+        for junit_test in "$@"
+        do
+                run "${junit_test%.*}"
+        done
 }
 
 
@@ -64,13 +72,13 @@ error_exit() {
 
 case "$action" in
         compile)
-                clean && compile
+                compile
                 ;;
         run)
-                run
+                run_all "$@"
                 ;;
         full)
-                clean && compile && run
+                clean && compile && run_all "$@"
                 ;;
         clean)
                 clean
