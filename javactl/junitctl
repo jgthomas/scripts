@@ -38,11 +38,19 @@ clean() {
 
 
 compile() {
-        if [[ -f "$sourcefile" ]]; then
-                javac -classpath "$(pwd)":"$JUNIT" "$sourcefile"
+        if [[ -f "$1" ]]; then
+                javac -classpath "$(pwd)":"$JUNIT" "$1"
         else
                 echo "File '$1' not found"
         fi
+}
+
+
+compile_all() {
+        for test_source in "$@"
+        do
+                compile "${test_source%.*}.java"
+        done
 }
 
 
@@ -72,13 +80,13 @@ error_exit() {
 
 case "$action" in
         compile)
-                compile
+                compile_all "$@"
                 ;;
         run)
                 run_all "$@"
                 ;;
         full)
-                clean && compile && run_all "$@"
+                clean && compile_all "$@" && run_all "$@"
                 ;;
         clean)
                 clean
