@@ -2,6 +2,17 @@
 #
 # Controls to build and manipulate jar archives
 #
+# jar options
+#
+# c - create new jar
+# u - update jar
+# x - extract jar
+#
+# v - verbose
+# f - create file
+# m - specify Manifest.txt
+# e - specify program entry point
+#
 
 program=$(basename "$0")
 action="$1"
