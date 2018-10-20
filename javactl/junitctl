@@ -11,11 +11,11 @@ sourcefile="${2%.*}.java"
 classfile="${2%.*}.class"
 testclass="${2%.*}"
 
-junit="/usr/share/java/junit-4.12.jar"
-hamcrest="/usr/share/java/hamcrest/core-1.3.jar"
-runclass="org.junit.runner.JUnitCore"
+JUNIT="/usr/share/java/junit-4.12.jar"
+HAMCREST="/usr/share/java/hamcrest/core-1.3.jar"
+RUNCLASS="org.junit.runner.JUnitCore"
 
-compiled='*.class *.jar'
+COMPILED='*.class *.jar'
 
 
 usage() {
@@ -29,7 +29,7 @@ usage() {
 
 
 clean() {
-        for file in $compiled
+        for file in $COMPILED
         do
                 rm -f "$file"
         done
@@ -38,7 +38,7 @@ clean() {
 
 compile() {
         if [[ -f "$sourcefile" ]]; then
-                javac -classpath "$(pwd)":"$junit" "$sourcefile"
+                javac -classpath "$(pwd)":"$JUNIT" "$sourcefile"
         else
                 echo "File '$1' not found"
         fi
@@ -47,7 +47,7 @@ compile() {
 
 run() {
         if [[ -f "$classfile" ]]; then
-                java -classpath "$(pwd)":"$junit":"$hamcrest" "$runclass" "$testclass"
+                java -classpath "$(pwd)":"$JUNIT":"$HAMCREST" "$RUNCLASS" "$testclass"
         else
                 echo "junit tests '$testclass' not found"
         fi
