@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Controls to build and manipulate jar archives
+#
+
+program=$(basename "$0")
+action="$1"
+
+# throw away action from command line arguments
+shift
+
+
+build_jar() {
+        entry_point="${1%.*}"
+        jar_name="${1%.*}.jar"
+
+        shift
+
+        jar cvfe "$jar_name" "$entry_point" "$@"
+}
+
+
+case "$action" in
+        build)
+                build_jar "$@"
+                ;;
+        *)
+                echo "Error!"
+                exit 1
+                ;;
+esac
+
