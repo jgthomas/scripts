@@ -12,12 +12,9 @@ COMPILED='*.class *.jar'
 program=$(basename "$0")
 action="$1"
 
-sourcefile="${2%.*}.java"
-classfile="${2%.*}.class"
-testclass="${2%.*}"
-
 # throw away action from command line arguments
 shift
+
 
 usage() {
         printf "\nUsage: $program command [target]\n\n"
