@@ -7,7 +7,7 @@
 JUNIT="/usr/share/java/junit-4.12.jar"
 HAMCREST="/usr/share/java/hamcrest/core-1.3.jar"
 RUNCLASS="org.junit.runner.JUnitCore"
-COMPILED='*.class *.jar'
+COMPILED='*.class'
 
 program=$(basename "$0")
 action="$1"
