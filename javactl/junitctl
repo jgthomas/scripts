@@ -77,7 +77,7 @@ error_exit() {
 
 case "$action" in
         compile)
-                compile_all "$@"
+                clean && compile_all "$@"
                 ;;
         run)
                 run_all "$@"
