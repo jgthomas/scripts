@@ -5,11 +5,14 @@
 #
 
 program=$(basename "$0")
-
 action="$1"
+
 sourcefile="${2%.*}.java"
 classfile="${2%.*}.class"
 testclass="${2%.*}"
+
+# throw away action from command line arguments
+shift
 
 JUNIT="/usr/share/java/junit-4.12.jar"
 HAMCREST="/usr/share/java/hamcrest/core-1.3.jar"
