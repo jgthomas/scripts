@@ -9,7 +9,7 @@ usage() {
         printf "\nUsage: $program [command] [target]\n\n"
         printf '%-10s%-25s%-25s \n' "help" "" "display this message"
         printf '%-10s%-25s%-25s \n' "File.java" "" "make javadoc for the specified file"
-        printf '%-10s%-25s%-25s \n' "all" "" "make javadoc for every .java file in directory"
+        printf '%-10s%-25s%-25s \n\n' "all" "" "make javadoc for every .java file in directory"
 }
 
 

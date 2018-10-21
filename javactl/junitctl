@@ -23,6 +23,7 @@ usage() {
         printf '%-10s%-25s%-25s \n' "compile" "TestClassName.java" "compile the tests"
         printf '%-10s%-25s%-25s \n' "run" "TestClassName" "run the tests"
         printf '%-10s%-25s%-25s \n' "full" "TestClassName.java" "compile and run the tests"
+        printf "\ncompile, run and full can all take multiple test files as arguments\n\n"
 }
 
 

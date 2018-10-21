@@ -47,7 +47,7 @@ usage() {
         printf '%-10s%-25s%-25s%-25s \n' "create" "EntryPoint.class" "[other classes or jars]" "create jar with first class as entry point"
         printf '%-10s%-25s%-25s%-25s \n' "update" "EntryPoint.class" "[other classes or jars]" "update jar with first class as entry point"
         printf '%-10s%-25s%-25s%-25s \n' "create" "Manifest.txt" "classes or jars" "create jar with specified manifest"
-        printf '%-10s%-25s%-25s%-25s \n' "update" "Manifest.txt" "classes or jars" "update jar with specified manifest"
+        printf '%-10s%-25s%-25s%-25s \n\n' "update" "Manifest.txt" "classes or jars" "update jar with specified manifest"
 }
 
 
