@@ -13,6 +13,14 @@
 # m - specify Manifest.txt
 # e - specify program entry point
 #
+#
+# Order of f m e options in command must match order of name of
+# jar file, manifest and entry point.
+#
+# Using a manifest
+#
+# jar cvfm NameOf.jar Manifest.txt File1.class File2.class ...
+#
 
 COMPILED='*.jar'
 MANIFEST="Manifest.txt"
