@@ -1,22 +1,24 @@
 pkgname=javactl
-pkgver=2.0
+pkgver=2.1
 pkgrel=1
 pkgdesc="Script to control junit and javadoc from command line and outside of any IDE"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('java-environment' 'junit' 'java-hamcrest')
-source=('junitctl' 'jdocctl')
-md5sums=('SKIP' 'SKIP')
+source=('junitctl' 'jdocctl' 'jarctl')
+md5sums=('SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
         install -D -m644 "$srcdir/junitctl" "$pkgdir/usr/bin/junitctl"
         install -D -m644 "$srcdir/jdocctl" "$pkgdir/usr/bin/jdocctl"
+        install -D -m644 "$srcdir/jarctl" "$pkgdir/usr/bin/jarctl"
 
         chmod +x "$pkgdir/usr/bin/junitctl"
         chmod +x "$pkgdir/usr/bin/jdocctl"
+        chmod +x "$pkgdir/usr/bin/jarctl"
 
 }
 
