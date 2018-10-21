@@ -40,12 +40,14 @@ fi
 
 
 usage() {
-        printf "\nUsage: $program command [target]\n\n"
+        printf "\nUsage: $program command [targets]\n\n"
         printf '%-10s%-25s%-25s%-25s \n' "help" "" "" "display this message"
         printf '%-10s%-25s%-25s%-25s \n' "clean" "" "" "delete all jar files"
-        printf '%-10s%-25s%-25s%-25s \n' "create" "EntryPoint.class" "[other classes or jars]" "create jar"
-        printf '%-10s%-25s%-25s%-25s \n' "update" "EntryPoint.class" "[other classes or jars]" "update jar"
         printf '%-10s%-25s%-25s%-25s \n' "extract" "FileName.jar" "" "extract jar archive"
+        printf '%-10s%-25s%-25s%-25s \n' "create" "EntryPoint.class" "[other classes or jars]" "create jar with first class as entry point"
+        printf '%-10s%-25s%-25s%-25s \n' "update" "EntryPoint.class" "[other classes or jars]" "update jar with first class as entry point"
+        printf '%-10s%-25s%-25s%-25s \n' "create" "Manifest.txt" "classes or jars" "create jar with specified manifest"
+        printf '%-10s%-25s%-25s%-25s \n' "update" "Manifest.txt" "classes or jars" "update jar with specified manifest"
 }
 
 
