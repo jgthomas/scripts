@@ -39,6 +39,16 @@ if [[ "$action" != "create" && "action" != "update" ]]; then
 fi
 
 
+usage() {
+        printf "\nUsage: $program command [target]\n\n"
+        printf '%-10s%-25s%-25s%-25s \n' "help" "" "" "display this message"
+        printf '%-10s%-25s%-25s%-25s \n' "clean" "" "" "delete all jar files"
+        printf '%-10s%-25s%-25s%-25s \n' "create" "EntryPoint.class" "[other classes or jars]" "create jar"
+        printf '%-10s%-25s%-25s%-25s \n' "update" "EntryPoint.class" "[other classes or jars]" "update jar"
+        printf '%-10s%-25s%-25s%-25s \n' "extract" "FileName.jar" "" "extract jar archive"
+}
+
+
 clean() {
         for file in $COMPILED
         do
@@ -77,6 +87,13 @@ build_jar() {
 }
 
 
+error_exit() {
+        echo "Unrecognised command: '$action'"
+        usage
+        exit 1
+}
+
+
 case "$action" in
         create | update)
                 build_jar "$@"
@@ -87,9 +104,11 @@ case "$action" in
         extract)
                 extract "$@"
                 ;;
+        help)
+                usage
+                ;;
         *)
-                echo "Error!"
-                exit 1
+                error_exit
                 ;;
 esac
 
