@@ -33,9 +33,17 @@ error_exit() {
 }
 
 
+clean() {
+        rm -rf docs_*
+}
+
+
 case "$action" in
         all)
                 make_all_docs
+                ;;
+        clean)
+                clean
                 ;;
         help)
                 usage
