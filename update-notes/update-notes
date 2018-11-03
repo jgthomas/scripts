@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#courses=("databases" "hci" "intro_cs" "software_workshop" "sw_engineering_1")
+courses=("intro_cs")
+notes="notes"
+assignments="assignments"
+
+notes_dir="/home/james/newNextcloud/msc"
+source_dir="/home/james/Code/msc_courses"
+
+
+for course in ${courses[*]}
+do
+        cp "$source_dir/$course/$notes/"*".pdf" "$notes_dir/$course/$notes/" 2>/dev/null &&
+        cp "$source_dir/$course/$assignments/"*".pdf" "$notes_dir/$course/$assignments/" 2>/dev/null
+done
+
