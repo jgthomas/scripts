@@ -35,11 +35,6 @@ testall() {
 }
 
 
-run() {
-        java -classpath $CLASSES "$1.$2"
-}
-
-
 case "$action" in
         compile)
                 compile "$1"
@@ -49,9 +44,6 @@ case "$action" in
                 ;;
         testall)
                 testall "$1"
-                ;;
-        run)
-                run "$1" "$2"
                 ;;
         *)
                 echo "Error!"
