@@ -13,6 +13,7 @@ action="$1"
 # throw away action from command line arguments
 shift
 
+
 compile() {
         javac -d classes -classpath $SOURCE:$JUNIT $SOURCE/"$1"/*.java
 }
@@ -21,6 +22,7 @@ compile() {
 testing() {
         java -classpath $CLASSES:$JUNIT:$HAMCREST "$RUNCLASS" "$1.$2"
 }
+
 
 testall() {
         for file in $CLASSES/$1/*
