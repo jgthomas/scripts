@@ -27,7 +27,7 @@ testall() {
         do
                 if [[ $file =~ Test.class ]]; then
                         file=${file##*/}
-                        testing $1 ${file%.*}
+                        testing "$1" ${file%.*}
                 fi
         done
 }
