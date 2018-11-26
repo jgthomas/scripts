@@ -4,4 +4,34 @@ JUNIT="/usr/share/java/junit-4.12.jar"
 HAMCREST="/usr/share/java/hamcrest/core-1.3.jar"
 RUNCLASS="org.junit.runner.JUnitCore"
 
-javac -d classes -classpath src:$JUNIT src/"$1"/*.java
+SOURCE="src"
+
+CLASSPATH=$SOURCE:$JUNIT
+
+program=$(basename "$0")
+action="$1"
+
+# throw away action from command line arguments
+shift
+
+compile() {
+        javac -d classes -classpath $CLASSPATH $SOURCE/"$1"/*.java
+}
+
+
+testing() {
+        java -classpath .:$JUNIT:$HAMCREST "$RUNCLASS" $1
+}
+
+
+case "$action" in
+        compile)
+                compile "$1"
+                ;;
+        testing)
+                testing
+                ;;
+        *)
+                echo "Error!"
+                ;;
+esac
