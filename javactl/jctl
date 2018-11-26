@@ -22,6 +22,16 @@ testing() {
         java -classpath $CLASSES:$JUNIT:$HAMCREST "$RUNCLASS" "$1.$2"
 }
 
+testall() {
+        for file in $CLASSES/$1/*
+        do
+                if [[ $file =~ Test.class ]]; then
+                        file=${file##*/}
+                        testing $1 ${file%.*}
+                fi
+        done
+}
+
 
 run() {
         java -classpath $CLASSES "$1.$2"
@@ -34,6 +44,9 @@ case "$action" in
                 ;;
         testing)
                 testing "$1" "$2"
+                ;;
+        testall)
+                testall "$1"
                 ;;
         run)
                 run "$1" "$2"
