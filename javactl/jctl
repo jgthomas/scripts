@@ -7,8 +7,6 @@ RUNCLASS="org.junit.runner.JUnitCore"
 SOURCE="src"
 CLASSES="classes"
 
-CLASSPATH=$SOURCE:$JUNIT
-
 program=$(basename "$0")
 action="$1"
 
@@ -16,7 +14,7 @@ action="$1"
 shift
 
 compile() {
-        javac -d classes -classpath $CLASSPATH $SOURCE/"$1"/*.java
+        javac -d classes -classpath $SOURCE:$JUNIT $SOURCE/"$1"/*.java
 }
 
 
