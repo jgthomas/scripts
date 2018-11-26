@@ -15,7 +15,7 @@ shift
 
 
 compile() {
-        javac -d classes -classpath $SOURCE:$JUNIT $SOURCE/"$1"/*.java
+        javac -d $CLASSES -classpath $SOURCE:$JUNIT $SOURCE/"$1"/*.java
 }
 
 
