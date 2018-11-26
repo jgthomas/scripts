@@ -5,6 +5,7 @@ HAMCREST="/usr/share/java/hamcrest/core-1.3.jar"
 RUNCLASS="org.junit.runner.JUnitCore"
 
 SOURCE="src"
+CLASSES="classes"
 
 CLASSPATH=$SOURCE:$JUNIT
 
@@ -20,7 +21,12 @@ compile() {
 
 
 testing() {
-        java -classpath .:$JUNIT:$HAMCREST "$RUNCLASS" $1
+        java -classpath $CLASSES:$JUNIT:$HAMCREST "$RUNCLASS" "$1.$2"
+}
+
+
+run() {
+        java -classpath $CLASSES "$1.$2"
 }
 
 
@@ -29,7 +35,10 @@ case "$action" in
                 compile "$1"
                 ;;
         testing)
-                testing
+                testing "$1" "$2"
+                ;;
+        run)
+                run "$1" "$2"
                 ;;
         *)
                 echo "Error!"
