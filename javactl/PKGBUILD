@@ -7,7 +7,7 @@ url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('java-environment' 'junit' 'java-hamcrest')
 source=('junitctl' 'jdocctl' 'jarctl' 'jpactl')
-md5sums=('SKIP' 'SKIP' 'SKIP')
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
