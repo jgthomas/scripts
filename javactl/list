@@ -1,0 +1,12 @@
+#!/bin/bash
+
+sourcefiles={}
+
+for file in src/$1/*
+do
+        if [[ ! $file =~ "Test.java" ]]; then
+                sourcefiles+=($file)
+        fi
+done
+
+printf '%s\n' "${sourcefiles[@]}"
