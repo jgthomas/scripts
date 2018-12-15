@@ -8,6 +8,7 @@ RUNCLASS="org.junit.runner.JUnitCore"
 
 SOURCE="src"
 CLASSES="classes"
+DOCS="docs"
 
 program=$(basename "$0")
 action="$1"
@@ -21,6 +22,14 @@ usage() {
         printf '%-10s%-25s%-25s \n' "help" "" "display this message"
         printf '%-10s%-25s%-25s \n' "compile" "package name" "compile all classes in package"
         printf '%-10s%-25s%-25s \n' "tests" "package name" "run all tests in package"
+        printf '%-10s%-25s%-25s \n' "docs" "package name" "make javadoc for package"
+}
+
+
+error_exit() {
+        echo "Unrecognised command: '$action'"
+        usage
+        exit 1
 }
 
 
@@ -46,14 +55,19 @@ tests() {
 
 
 docs() {
-        files=($CLASSES/$1/*)
+        files=($SOURCE/$1/*)
 
-        for file in "${files[@]}"
+        # remove all test files
+        for index in "${!files[@]}"
         do
-                if [[ ! $file =~ Test.class ]]; then
-                        echo $file
+                if [[ ${files[$index]} =~ Test.java ]]; then
+                        unset -v 'files[$index]'
+                        echo ${files[@]}
                 fi
         done
+
+        # make docs for package
+        javadoc -d $DOCS -html5 "${files[@]}"
 }
 
 
@@ -71,7 +85,6 @@ case "$action" in
                 usage
                 ;;
         *)
-                usage
-                exit 1
+                error_exit
                 ;;
 esac
