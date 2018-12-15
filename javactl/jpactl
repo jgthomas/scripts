@@ -23,6 +23,7 @@ usage() {
         printf '%-10s%-25s%-25s \n' "compile" "package name" "compile all classes in package"
         printf '%-10s%-25s%-25s \n' "tests" "package name" "run all tests in package"
         printf '%-10s%-25s%-25s \n' "docs" "package name" "make javadoc for package"
+        printf '%-10s%-25s%-25s \n' "clean" "" "delete generated files"
 }
 
 
@@ -62,12 +63,16 @@ docs() {
         do
                 if [[ ${files[$index]} =~ Test.java ]]; then
                         unset -v 'files[$index]'
-                        echo ${files[@]}
                 fi
         done
 
         # make docs for package
         javadoc -d $DOCS -html5 "${files[@]}"
+}
+
+
+clean() {
+        rm -rf $DOCS
 }
 
 
@@ -80,6 +85,9 @@ case "$action" in
                 ;;
         docs)
                 docs "$1"
+                ;;
+        clean)
+                clean
                 ;;
         help)
                 usage
