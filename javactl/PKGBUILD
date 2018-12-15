@@ -1,5 +1,5 @@
 pkgname=javactl
-pkgver=2.7
+pkgver=2.99
 pkgrel=1
 pkgdesc="Script to control junit and javadoc from command line and outside of any IDE"
 arch=('any')

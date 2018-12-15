@@ -1,5 +1,7 @@
 #!/bin/bash
 
+shopt -s nullglob
+
 JUNIT="/usr/share/java/junit-4.12.jar"
 HAMCREST="/usr/share/java/hamcrest/core-1.3.jar"
 RUNCLASS="org.junit.runner.JUnitCore"
@@ -43,12 +45,27 @@ tests() {
 }
 
 
+docs() {
+        files=($CLASSES/$1/*)
+
+        for file in "${files[@]}"
+        do
+                if [[ ! $file =~ Test.class ]]; then
+                        echo $file
+                fi
+        done
+}
+
+
 case "$action" in
         compile)
                 compile "$1"
                 ;;
         tests)
                 tests "$1"
+                ;;
+        docs)
+                docs "$1"
                 ;;
         help)
                 usage
