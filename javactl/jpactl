@@ -13,6 +13,14 @@ action="$1"
 # throw away action from command line arguments
 shift
 
+usage() {
+        printf "\nUsage: $program command [target]\n\n"
+        printf "$program must be run in the project root directory\n\n"
+        printf '%-10s%-25s%-25s \n' "help" "" "display this message"
+        printf '%-10s%-25s%-25s \n' "compile" "package name" "compile all classes in package"
+        printf '%-10s%-25s%-25s \n' "testall" "package name" "run all tests in package"
+}
+
 
 compile() {
         javac -d $CLASSES -classpath $SOURCE:$JUNIT $SOURCE/"$1"/*.java
