@@ -32,7 +32,7 @@ testing() {
 }
 
 
-testall() {
+tests() {
         for file in $CLASSES/$1/*
         do
                 if [[ $file =~ Test.class ]]; then
@@ -47,13 +47,14 @@ case "$action" in
         compile)
                 compile "$1"
                 ;;
-        testing)
-                testing "$1" "$2"
+        tests)
+                tests "$1"
                 ;;
-        testall)
-                testall "$1"
+        help)
+                usage
                 ;;
         *)
-                echo "Error!"
+                usage
+                exit 1
                 ;;
 esac
