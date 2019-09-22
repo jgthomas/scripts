@@ -48,8 +48,8 @@ output_status() {
 
 check_syshealth() {
         printf '\n%s\n\n' "Running system health check..."
-        #failed_unit_check
-        #foreign_packages_check
+        failed_unit_check
+        foreign_packages_check
         unrequired_dependencies_check
         pacsave_files_check
 }
@@ -58,9 +58,10 @@ check_syshealth() {
 failed_unit_check() {
         printf '%s' "Failed unit files: "
         local command="systemctl --failed"
-        test_success $command
-        local exit_code=$?
         local good_code=0
+        local exit_code
+        $command > /dev/null 2>&1
+        exit_code=$?
         output_status $exit_code $good_code $command
 }
 
@@ -68,9 +69,10 @@ failed_unit_check() {
 foreign_packages_check() {
         printf '%s' "Foreign packages: "
         local command="pacman -Qm"
-        test_success $command
-        local exit_code=$?
         local good_code=1
+        local exit_code
+        $command > /dev/null 2>&1
+        exit_code=$?
         output_status $exit_code $good_code $command
 }
 
