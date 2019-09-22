@@ -112,7 +112,7 @@ pacsave_files_check() {
 
 disk_space_check() {
         printf '%s' "Disk space used ${BOLD}$1${NORMAL}: "
-        df -hT "$1" | awk 'FNR == 2 { print $6}'
+        df -hT "$1" | awk 'FNR == 2 { print $6 }'
 }
 
 
