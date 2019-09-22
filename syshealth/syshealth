@@ -47,6 +47,7 @@ check_syshealth() {
         printf '\n%s\n\n' "Running system health check..."
         failed_unit_check
         foreign_packages_check
+        unrequired_dependencies_check
 }
 
 
@@ -70,4 +71,16 @@ foreign_packages_check() {
 }
 
 
+unrequired_dependencies_check() {
+        printf '%s' "Unrequired dependencies: "
+        local command="pacman -Qttd"
+        test_success $command
+        local exit_code=$?
+        local good_code=1
+        output_status $exit_code $good_code $command
+}
+
+
 check_syshealth
+
+
