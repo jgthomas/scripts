@@ -17,6 +17,7 @@ PROBLEM="PROBLEM"
 
 test_success() {
         "$1" > /dev/null 2>&1
+        code=$?
 }
 
 
@@ -47,9 +48,9 @@ output_status() {
 
 check_syshealth() {
         printf '\n%s\n\n' "Running system health check..."
-        failed_unit_check
-        foreign_packages_check
-        unrequired_dependencies_check
+        #failed_unit_check
+        #foreign_packages_check
+        #unrequired_dependencies_check
         pacsave_files_check
 }
 
@@ -87,15 +88,18 @@ unrequired_dependencies_check() {
 pacsave_files_check() {
         printf '%s' "Unhandled pacsave files: "
         local command="locate *.pacsave"
+        local good_code=1
+        local exit_code
         test_success $command
-        local exit_code=$?
-        echo $exit_code
-        local good_code=0
+        exit_code=$?
         output_status $exit_code $good_code $command
 }
 
-echo $1
-if [[ "$1" == "quiet" ]]; then RUN_COMMANDS=false; fi
+if [[ "$1" == "quiet" ]]; then
+        RUN_COMMANDS=false
+else
+        RUN_COMMANDS=true
+fi
 check_syshealth
 
 
