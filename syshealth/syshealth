@@ -127,8 +127,9 @@ disk_space_root_check() {
 
 
 updates_available_check() {
-        printf '%s' "Available updates: "
-        checkupdates | awk 'END { print NR }'
+        count=$(checkupdates | awk 'END { print NR }')
+        printf '%s\n' "Available updates: $count"
+        if [[ $count -gt 0 ]]; then checkupdates; fi
 }
 
 
