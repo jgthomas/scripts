@@ -12,7 +12,7 @@ NORMAL=$(tput sgr0)
 RUN_COMMANDS=true
 
 OK="OK"
-PROBLEM="PROBLEM"
+PROBLEM="ACTION"
 
 
 print_ok() {
@@ -51,6 +51,7 @@ check_syshealth() {
         pacsave_files_check
         disk_space_home_check
         disk_space_root_check
+        updates_available_check
 }
 
 
@@ -122,6 +123,12 @@ disk_space_home_check() {
 
 disk_space_root_check() {
         disk_space_check "/"
+}
+
+
+updates_available_check() {
+        printf '%s' "Available updates: "
+        checkupdates | awk 'END { print NR }'
 }
 
 
