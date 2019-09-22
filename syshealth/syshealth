@@ -41,12 +41,14 @@ output_status() {
                 print_ok
         else
                 print_problem
-                if [[ $RUN_COMMANDS ]]; then $command; fi
+                if [[ $RUN_COMMANDS = true ]]; then $command; fi
         fi
 }
 
 
 check_syshealth() {
+        [[ "$1" == "quiet" ]] && RUN_COMMANDS=false || RUN_COMMANDS=true
+
         printf '\n%s\n\n' "Running system health check..."
         failed_unit_check
         foreign_packages_check
@@ -98,11 +100,6 @@ pacsave_files_check() {
         output_status $exit_code $good_code $command
 }
 
-if [[ "$1" == "quiet" ]]; then
-        RUN_COMMANDS=false
-else
-        RUN_COMMANDS=true
-fi
-check_syshealth
+check_syshealth $@
 
 
