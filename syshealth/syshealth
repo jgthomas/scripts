@@ -51,6 +51,8 @@ check_syshealth() {
         pacsave_files_check
         disk_space_home_check
         disk_space_root_check
+        ram_free_check
+        swap_used_check
         updates_available_check
 }
 
@@ -123,6 +125,18 @@ disk_space_home_check() {
 
 disk_space_root_check() {
         disk_space_check "/"
+}
+
+
+ram_free_check() {
+        printf '%s' "Available memory: "
+        free -h --giga | awk 'FNR == 2 { print $7 }'
+}
+
+
+swap_used_check() {
+        printf '%s' "Swap used: "
+        free -h --giga | awk 'FNR == 3 { print $3 }'
 }
 
 
