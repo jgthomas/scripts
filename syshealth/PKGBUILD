@@ -1,5 +1,5 @@
 pkgname=syshealth
-pkgver=0.1
+pkgver=0.2
 pkgrel=1
 pkgdesc="Quick health check for Arch system"
 arch=('any')

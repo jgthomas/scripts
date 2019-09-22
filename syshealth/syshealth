@@ -49,6 +49,7 @@ check_syshealth() {
         unrequired_dependencies_check
         pacnew_files_check
         pacsave_files_check
+        clock_synchronized_check
         disk_space_home_check
         disk_space_root_check
         ram_free_check
@@ -137,6 +138,17 @@ ram_free_check() {
 swap_used_check() {
         printf '%s' "Swap used: "
         free -h --giga | awk 'FNR == 3 { print $3 }'
+}
+
+
+clock_synchronized_check() {
+        printf '%s' "System clock synchronized: "
+        local sync=$(timedatectl | awk 'FNR == 5 { print $4 }')
+        [[ "$sync" == "yes" ]] && print_ok || print_problem
+
+        printf '%s' "Network time protocol active: "
+        local ntp=$(timedatectl | awk 'FNR == 6 { print $3 }')
+        [[ "$ntp" == "active" ]] && print_ok || print_problem
 }
 
 
