@@ -15,12 +15,6 @@ OK="OK"
 PROBLEM="PROBLEM"
 
 
-test_success() {
-        "$1" > /dev/null 2>&1
-        code=$?
-}
-
-
 print_ok() {
         printf '%s\n' "${GREEN}$OK${NORMAL}"
 }
@@ -55,6 +49,8 @@ check_syshealth() {
         unrequired_dependencies_check
         pacnew_files_check
         pacsave_files_check
+        disk_space_home_check
+        disk_space_root_check
 }
 
 
@@ -111,6 +107,23 @@ pacsave_files_check() {
         exit_code=$?
         output_status $exit_code $good_code $command
 }
+
+
+disk_space_check() {
+        printf '%s' "Disk space used ${BOLD}$1${NORMAL}: "
+        df -hT "$1" | awk 'FNR == 2 { print $6}'
+}
+
+
+disk_space_home_check() {
+        disk_space_check "/home"
+}
+
+
+disk_space_root_check() {
+        disk_space_check "/"
+}
+
 
 check_syshealth $@
 
