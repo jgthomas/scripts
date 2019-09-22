@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Assign script name
+PROGRAM=$(basename $0)
+
+# Assign colours and formatting
+BOLD=$(tput bold)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+NORMAL=$(tput sgr0)
+
+OK="OK"
+PROBLEM="PROBLEM"
+
+
+test_success() {
+        "$1" > /dev/null 2>&1
+}
+
+
+print_ok() {
+        printf '%s\n' "${GREEN}$OK${NORMAL}"
+}
+
+
+print_problem() {
+        printf '%s\n' "${RED}$PROBLEM${NORMAL}"
+}
+
+
+output_status() {
+        local exit_code=$1
+        local good_code=$2
+        shift 2
+        local command=$@
+
+        if [[ $exit_code -eq $good_code ]]; then
+                print_ok
+        else
+                print_problem
+                $command
+        fi
+}
+
+
+check_syshealth() {
+        printf '\n%s\n\n' "Running system health check..."
+        failed_unit_check
+        foreign_packages_check
+}
+
+
+failed_unit_check() {
+        printf '%s' "Failed unit files: "
+        local command="systemctl --failed"
+        test_success $command
+        local exit_code=$?
+        local good_code=0
+        output_status $exit_code $good_code $command
+}
+
+
+foreign_packages_check() {
+        printf '%s' "Foreign packages: "
+        local command="pacman -Qm"
+        test_success $command
+        local exit_code=$?
+        local good_code=1
+        output_status $exit_code $good_code $command
+}
+
+
+check_syshealth
