@@ -53,6 +53,7 @@ check_syshealth() {
         failed_unit_check
         foreign_packages_check
         unrequired_dependencies_check
+        pacnew_files_check
         pacsave_files_check
 }
 
@@ -82,6 +83,17 @@ foreign_packages_check() {
 unrequired_dependencies_check() {
         printf '%s' "Unrequired dependencies: "
         local command="pacman -Qttd"
+        local good_code=1
+        local exit_code
+        $command > /dev/null 2>&1
+        exit_code=$?
+        output_status $exit_code $good_code $command
+}
+
+
+pacnew_files_check() {
+        printf '%s' "Unhandled pacnew files: "
+        local command="locate *.pacnew"
         local good_code=1
         local exit_code
         $command > /dev/null 2>&1
