@@ -9,6 +9,8 @@ RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 NORMAL=$(tput sgr0)
 
+RUN_COMMANDS=true
+
 OK="OK"
 PROBLEM="PROBLEM"
 
@@ -38,7 +40,7 @@ output_status() {
                 print_ok
         else
                 print_problem
-                $command
+                if [[ $RUN_COMMANDS ]]; then $command; fi
         fi
 }
 
@@ -48,6 +50,7 @@ check_syshealth() {
         failed_unit_check
         foreign_packages_check
         unrequired_dependencies_check
+        pacsave_files_check
 }
 
 
@@ -81,6 +84,18 @@ unrequired_dependencies_check() {
 }
 
 
+pacsave_files_check() {
+        printf '%s' "Unhandled pacsave files: "
+        local command="locate *.pacsave"
+        test_success $command
+        local exit_code=$?
+        echo $exit_code
+        local good_code=0
+        output_status $exit_code $good_code $command
+}
+
+echo $1
+if [[ "$1" == "quiet" ]]; then RUN_COMMANDS=false; fi
 check_syshealth
 
 
