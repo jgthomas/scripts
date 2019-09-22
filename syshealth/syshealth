@@ -50,7 +50,7 @@ check_syshealth() {
         printf '\n%s\n\n' "Running system health check..."
         #failed_unit_check
         #foreign_packages_check
-        #unrequired_dependencies_check
+        unrequired_dependencies_check
         pacsave_files_check
 }
 
@@ -78,9 +78,10 @@ foreign_packages_check() {
 unrequired_dependencies_check() {
         printf '%s' "Unrequired dependencies: "
         local command="pacman -Qttd"
-        test_success $command
-        local exit_code=$?
         local good_code=1
+        local exit_code
+        $command > /dev/null 2>&1
+        exit_code=$?
         output_status $exit_code $good_code $command
 }
 
@@ -90,7 +91,7 @@ pacsave_files_check() {
         local command="locate *.pacsave"
         local good_code=1
         local exit_code
-        test_success $command
+        $command > /dev/null 2>&1
         exit_code=$?
         output_status $exit_code $good_code $command
 }
