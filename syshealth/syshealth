@@ -11,6 +11,8 @@ NORMAL=$(tput sgr0)
 
 RUN_COMMANDS=true
 
+CORE_COUNT=$(nproc)
+
 OK="OK"
 PROBLEM="ACTION"
 
