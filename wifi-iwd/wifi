@@ -29,11 +29,11 @@ known() {
 
 usage() {
         printf "\nUsage: $program command [network] [password]\n\n"
-        printf '%-10s%-10s%-15s%-20s%-10s \n\n' "help" "" "" "" "display this message"
-        printf '%-10s%-10s%-15s%-20s%-10s \n' "networks" "" "" "" "show available networks"
-        printf '%-10s%-10s%-15s%-20s%-10s \n' "known" "" "" "" "show known networks"
-        printf '%-10s%-10s%-15s%-20s%-10s \n' "connect" "NETWORK" "" "" "connect to known network"
-        printf '%-10s%-10s%-15s%-20s%-10s \n' "connect" "NETWORK" "PASSWORD" "" "connect to new network"
+        printf '%-10s%-10s%-15s%-10s \n\n' "help" "" "" "display this message"
+        printf '%-10s%-10s%-15s%-10s \n' "networks" "" "" "show available networks"
+        printf '%-10s%-10s%-15s%-10s \n' "known" "" "" "show known networks"
+        printf '%-10s%-10s%-15s%-10s \n' "connect" "NETWORK" "" "connect to known network"
+        printf '%-10s%-10s%-15s%-10s \n' "connect" "NETWORK" "PASSWORD" "connect to new network"
 }
 
 
