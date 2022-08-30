@@ -10,10 +10,14 @@ connect() {
         ssid="$1"
         passphrase="$2"
 
-        if [[ ! -z $passphrase ]]; then
-                iwctl --passphrase=$passphrase station $DEVICE connect $ssid
-        else
+        if [[ -z $ssid ]]; then
+                usage
+        fi
+
+        if [[ -z $passphrase ]]; then
                 iwctl station $DEVICE connect $ssid
+        else
+                iwctl --passphrase=$passphrase station $DEVICE connect $ssid
         fi
 }
 
