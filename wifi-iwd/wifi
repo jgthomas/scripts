@@ -11,7 +11,7 @@ connect() {
         passphrase="$2"
 
         if [[ -z $ssid ]]; then
-                usage
+                usage && exit 1;
         fi
 
         if [[ -z $passphrase ]]; then
