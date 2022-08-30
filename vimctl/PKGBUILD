@@ -1,0 +1,21 @@
+pkgname=vimctl
+pkgver=0.1
+pkgrel=1
+pkgdesc="Vim plugin management script using native plugin support."
+arch=('any')
+url="https://github.com/jgthomas/scripts"
+license=('GPL3')
+depends=('git')
+source=("${pkgname}")
+md5sums=('SKIP')
+
+
+package() {
+
+        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+
+        chmod +x "$pkgdir/usr/bin/${pkgname}"
+
+}
+
+

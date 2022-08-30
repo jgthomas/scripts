@@ -1,0 +1,103 @@
+#!/bin/bash
+
+COMMAND=$1
+
+if [[ $# -gt 1 ]]; then
+        PLUGIN=$2
+        PLUGIN_URL=$2
+        PLUGIN_NAME=$(basename $PLUGIN_URL)
+fi
+
+SETUP="setup"
+UPDATE="update"
+REMOVE="remove"
+ADD="add"
+LIST="list"
+STATUS="status"
+
+GIT_URL="git@github.com:jgthomas"
+VIM_REPO="vim-dir"
+GIT_SUFFIX=".git"
+
+CLONE_CMD="git clone --recursive"
+CLONE_LOCATION=$HOME
+
+PLUGIN_DIR="pack/plugins/start"
+
+SUBMOD_UPDATE_CMD="git submodule update --remote --merge"
+SUBMOD_REMOVE_CMD="git submodule deinit"
+SUBMOD_ADD_CMD="git submodule add -f"
+
+COMMIT_CMD="git commit"
+RM_CMD="rm -rf"
+GIT_RM_CMD="git rm -r"
+GIT_STATUS_CMD="git status"
+
+VIM_HOME=$HOME/.vim
+LINK="ln -sf"
+
+
+function setup() {
+        (cd $CLONE_LOCATION &&
+                $CLONE_CMD $GIT_URL/$VIM_REPO$GIT_SUFFIX &&
+                $LINK $VIM_REPO $VIM_HOME
+        )
+}
+
+
+function update_plugins() {
+        (cd $CLONE_LOCATION/$VIM_REPO &&
+                $SUBMOD_UPDATE_CMD
+        )
+}
+
+
+function remove_plugin() {
+        (cd $CLONE_LOCATION/$VIM_REPO &&
+                $SUBMOD_REMOVE_CMD $PLUGIN_DIR/$PLUGIN &&
+                $GIT_RM_CMD $PLUGIN_DIR/$PLUGIN &&
+                $RM_CMD .git/modules/$PLUGIN_DIR/$PLUGIN
+        )
+}
+
+
+function add_plugin() {
+        (cd $CLONE_LOCATION/$VIM_REPO &&
+                $SUBMOD_ADD_CMD $PLUGIN_URL $PLUGIN_DIR/$PLUGIN_NAME
+        )
+}
+
+
+function list_plugins() {
+        ls -l $CLONE_LOCATION/$VIM_REPO/$PLUGIN_DIR
+}
+
+
+function repo_status() {
+        (cd $CLONE_LOCATION/$VIM_REPO &&
+                $GIT_STATUS_CMD
+        )
+}
+
+
+case $COMMAND in
+        $SETUP)
+                setup
+                ;;
+        $UPDATE)
+                update_plugins
+                ;;
+        $REMOVE)
+                remove_plugin
+                ;;
+        $ADD)
+                add_plugin
+                ;;
+        $LIST)
+                list_plugins
+                ;;
+        $STATUS)
+                repo_status
+                ;;
+esac
+
