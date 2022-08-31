@@ -1,4 +1,4 @@
-pkgname=wifi
+pkgname=wifi-iwd
 pkgver=1.0
 pkgrel=1
 pkgdesc="iwctl wrapper for iwd"
