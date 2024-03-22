@@ -1,5 +1,5 @@
 pkgname=my-pacman-hooks
-pkgver=1.4
+pkgver=1.5
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
