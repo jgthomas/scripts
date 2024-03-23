@@ -1,5 +1,5 @@
 pkgname=addcustom
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc="Add a package to the custom repository"
 arch=('any')
