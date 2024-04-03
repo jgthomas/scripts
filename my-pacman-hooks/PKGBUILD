@@ -1,5 +1,5 @@
 pkgname=my-pacman-hooks
-pkgver=1.9
+pkgver=1.10
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
@@ -12,8 +12,9 @@ source=("00-clearcache.hook"
         "02-clearaurcache.hook"
         "04-systemd-boot.hook"
         "05-pacman-foreign.hook"
-        "06-pacman-unrequired.hook")
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+        "06-pacman-unrequired.hook"
+        "07-pacnew-check.hook")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
@@ -25,6 +26,7 @@ package() {
         install -Dm 644 "$srcdir/04-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/04-systemd-boot.hook"
         install -Dm 644 "$srcdir/05-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/05-pacman-foreign.hook"
         install -Dm 644 "$srcdir/06-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/06-pacman-unrequired.hook"
+        install -Dm 644 "$srcdir/07-pacnew-check.hook" "$pkgdir/etc/pacman.d/hooks/07-pacnew-check.hook"
 
 }
 
