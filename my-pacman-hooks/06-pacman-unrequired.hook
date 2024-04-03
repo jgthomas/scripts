@@ -8,4 +8,4 @@ Target = *
 [Action]
 Description = Unrequired packages check
 When = PostTransaction
-Exec = /usr/bin/bash -c "/usr/bin/pacman -Qtd || /usr/bin/echo '=> No unrequired packages found'"
+Exec = /usr/bin/bash -c "/usr/bin/pacman -Qtd || /usr/bin/echo '=> no unrequired packages found'"

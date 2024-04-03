@@ -1,30 +1,30 @@
 pkgname=my-pacman-hooks
-pkgver=1.7
-pkgrel=2
+pkgver=1.9
+pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('pacman-contrib' 'reflector')
-source=("mirrorupgrade.hook"
-        "clearcache.hook"
-        "clearcustomcache.hook"
-        "clearaurcache.hook"
-        "systemd-boot.hook"
-        "pacman-foreign.hook"
-        "pacman-unrequired.hook")
+source=("00-clearcache.hook"
+        "01-clearcustomcache.hook"
+        "03-mirrorupgrade.hook"
+        "02-clearaurcache.hook"
+        "04-systemd-boot.hook"
+        "05-pacman-foreign.hook"
+        "06-pacman-unrequired.hook")
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
-        install -Dm 644 "$srcdir/mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/mirrorupgrade.hook"
-        install -Dm 644 "$srcdir/clearcache.hook" "$pkgdir/etc/pacman.d/hooks/clearcache.hook"
-        install -Dm 644 "$srcdir/clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/clearcustomcache.hook"
-        install -Dm 644 "$srcdir/clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/clearaurcache.hook"
-        install -Dm 644 "$srcdir/systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/systemd-boot.hook"
-        install -Dm 644 "$srcdir/pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/pacman-foreign.hook"
-        install -Dm 644 "$srcdir/pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/pacman-unrequired.hook"
+        install -Dm 644 "$srcdir/00-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/00-clearcache.hook"
+        install -Dm 644 "$srcdir/01-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/01-clearcustomcache.hook"
+        install -Dm 644 "$srcdir/02-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/02-clearaurcache.hook"
+        install -Dm 644 "$srcdir/03-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/03-mirrorupgrade.hook"
+        install -Dm 644 "$srcdir/04-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/04-systemd-boot.hook"
+        install -Dm 644 "$srcdir/05-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/05-pacman-foreign.hook"
+        install -Dm 644 "$srcdir/06-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/06-pacman-unrequired.hook"
 
 }
 

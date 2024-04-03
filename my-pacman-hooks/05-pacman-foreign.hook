@@ -8,4 +8,4 @@ Target = *
 [Action]
 Description = Foreign packages check
 When = PostTransaction
-Exec = /usr/bin/bash -c "/usr/bin/pacman -Qm || /usr/bin/echo '=> No foreign packages found'"
+Exec = /usr/bin/bash -c "/usr/bin/pacman -Qm || /usr/bin/echo '=> no foreign packages found'"
