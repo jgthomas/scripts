@@ -11,3 +11,7 @@ echo
 
 repo-add $REPO_DIR/$REPO_NAME $REPO_DIR/$PACKAGE_NAME
 
+echo
+
+rm -rf src/ pkg/ && echo "Deleted build directories"
+
