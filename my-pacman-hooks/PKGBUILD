@@ -1,5 +1,5 @@
 pkgname=my-pacman-hooks
-pkgver=1.5
+pkgver=1.6
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
@@ -10,8 +10,10 @@ source=("mirrorupgrade.hook"
         "clearcache.hook"
         "clearcustomcache.hook"
         "clearaurcache.hook"
-        "systemd-boot.hook")
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+        "systemd-boot.hook"
+        "pacman-foreign.hook"
+        "pacman-unrequired.hook")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
@@ -21,6 +23,8 @@ package() {
         install -Dm 644 "$srcdir/clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/clearcustomcache.hook"
         install -Dm 644 "$srcdir/clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/clearaurcache.hook"
         install -Dm 644 "$srcdir/systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/systemd-boot.hook"
+        install -Dm 644 "$srcdir/pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/pacman-foreign.hook"
+        install -Dm 644 "$srcdir/pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/pacman-unrequired.hook"
 
 }
 

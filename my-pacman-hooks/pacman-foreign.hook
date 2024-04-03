@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Remove
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Foreign packages check
+When = PostTransaction
+Exec = /usr/bin/bash -c "/usr/bin/pacman -Qm || /usr/bin/echo '=> No foreign packages found'"
