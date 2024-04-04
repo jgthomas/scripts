@@ -1,32 +1,32 @@
 pkgname=my-pacman-hooks
-pkgver=1.10
+pkgver=1.11
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('pacman-contrib' 'reflector')
-source=("00-clearcache.hook"
-        "01-clearcustomcache.hook"
-        "03-mirrorupgrade.hook"
-        "02-clearaurcache.hook"
-        "04-systemd-boot.hook"
-        "05-pacman-foreign.hook"
-        "06-pacman-unrequired.hook"
-        "07-pacnew-check.hook")
+source=("910-clearcache.hook"
+        "911-clearcustomcache.hook"
+        "912-clearaurcache.hook"
+        "913-mirrorupgrade.hook"
+        "914-systemd-boot.hook"
+        "915-pacman-foreign.hook"
+        "916-pacman-unrequired.hook"
+        "917-pacnew-check.hook")
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
-        install -Dm 644 "$srcdir/00-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/00-clearcache.hook"
-        install -Dm 644 "$srcdir/01-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/01-clearcustomcache.hook"
-        install -Dm 644 "$srcdir/02-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/02-clearaurcache.hook"
-        install -Dm 644 "$srcdir/03-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/03-mirrorupgrade.hook"
-        install -Dm 644 "$srcdir/04-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/04-systemd-boot.hook"
-        install -Dm 644 "$srcdir/05-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/05-pacman-foreign.hook"
-        install -Dm 644 "$srcdir/06-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/06-pacman-unrequired.hook"
-        install -Dm 644 "$srcdir/07-pacnew-check.hook" "$pkgdir/etc/pacman.d/hooks/07-pacnew-check.hook"
+        install -Dm 644 "$srcdir/910-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/910-clearcache.hook"
+        install -Dm 644 "$srcdir/911-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/911-clearcustomcache.hook"
+        install -Dm 644 "$srcdir/912-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/912-clearaurcache.hook"
+        install -Dm 644 "$srcdir/913-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/913-mirrorupgrade.hook"
+        install -Dm 644 "$srcdir/914-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/914-systemd-boot.hook"
+        install -Dm 644 "$srcdir/915-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/915-pacman-foreign.hook"
+        install -Dm 644 "$srcdir/916-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/916-pacman-unrequired.hook"
+        install -Dm 644 "$srcdir/917-pacnew-check.hook" "$pkgdir/etc/pacman.d/hooks/917-pacnew-check.hook"
 
 }
 
