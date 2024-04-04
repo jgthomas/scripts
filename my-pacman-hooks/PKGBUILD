@@ -1,32 +1,32 @@
 pkgname=my-pacman-hooks
-pkgver=1.11
+pkgver=1.12
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('pacman-contrib' 'reflector')
-source=("910-clearcache.hook"
-        "911-clearcustomcache.hook"
-        "912-clearaurcache.hook"
-        "913-mirrorupgrade.hook"
-        "914-systemd-boot.hook"
-        "915-pacman-foreign.hook"
-        "916-pacman-unrequired.hook"
-        "917-pacnew-check.hook")
+source=("z-910-clearcache.hook"
+        "z-911-clearaurcache.hook"
+        "z-912-clearcustomcache.hook"
+        "z-913-mirrorupgrade.hook"
+        "z-914-systemd-boot.hook"
+        "z-915-pacman-foreign.hook"
+        "z-916-pacman-unrequired.hook"
+        "z-917-pacnew-check.hook")
 md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
-        install -Dm 644 "$srcdir/910-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/910-clearcache.hook"
-        install -Dm 644 "$srcdir/911-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/911-clearcustomcache.hook"
-        install -Dm 644 "$srcdir/912-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/912-clearaurcache.hook"
-        install -Dm 644 "$srcdir/913-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/913-mirrorupgrade.hook"
-        install -Dm 644 "$srcdir/914-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/914-systemd-boot.hook"
-        install -Dm 644 "$srcdir/915-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/915-pacman-foreign.hook"
-        install -Dm 644 "$srcdir/916-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/916-pacman-unrequired.hook"
-        install -Dm 644 "$srcdir/917-pacnew-check.hook" "$pkgdir/etc/pacman.d/hooks/917-pacnew-check.hook"
+        install -Dm 644 "$srcdir/z-910-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/z-910-clearcache.hook"
+        install -Dm 644 "$srcdir/z-911-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/z-912-clearaurcache.hook"
+        install -Dm 644 "$srcdir/z-912-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/z-911-clearcustomcache.hook"
+        install -Dm 644 "$srcdir/z-913-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/z-913-mirrorupgrade.hook"
+        install -Dm 644 "$srcdir/z-914-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/z-914-systemd-boot.hook"
+        install -Dm 644 "$srcdir/z-915-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/z-915-pacman-foreign.hook"
+        install -Dm 644 "$srcdir/z-916-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/z-916-pacman-unrequired.hook"
+        install -Dm 644 "$srcdir/z-917-pacnew-check.hook" "$pkgdir/etc/pacman.d/hooks/z-917-pacnew-check.hook"
 
 }
 
