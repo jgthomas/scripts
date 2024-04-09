@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Remove
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Checking for updates to AUR packages
+When = PostTransaction
+Exec = /usr/bin/bash -c 'aurpacs=$(aur repo -d aur_packages -u); if [[ -z $aurpacs ]]; then echo "==> no AUR packages to update"; else echo "$aurpacs"; fi'

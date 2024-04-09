@@ -6,6 +6,6 @@ Type = Package
 Target = *
 
 [Action]
-Description = Official: Keep the last cache and the currently installed.
+Description = Official: Keep the last cache and the currently installed
 When = PostTransaction
 Exec = /usr/bin/paccache -rvk2

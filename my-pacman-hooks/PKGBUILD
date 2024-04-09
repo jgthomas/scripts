@@ -1,5 +1,5 @@
 pkgname=my-pacman-hooks
-pkgver=1.14
+pkgver=1.16
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
@@ -13,8 +13,9 @@ source=("z-910-clearcache.hook"
         "z-914-systemd-boot.hook"
         "z-915-pacman-foreign.hook"
         "z-916-pacman-unrequired.hook"
-        "z-917-pacnew-check.hook")
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+        "z-917-pacnew-check.hook"
+        "z-918-aur-update-check.hook")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
@@ -27,6 +28,7 @@ package() {
         install -Dm 644 "$srcdir/z-915-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/z-915-pacman-foreign.hook"
         install -Dm 644 "$srcdir/z-916-pacman-unrequired.hook" "$pkgdir/etc/pacman.d/hooks/z-916-pacman-unrequired.hook"
         install -Dm 644 "$srcdir/z-917-pacnew-check.hook" "$pkgdir/etc/pacman.d/hooks/z-917-pacnew-check.hook"
+        install -Dm 644 "$srcdir/z-918-aur-update-check.hook" "$pkgdir/etc/pacman.d/hooks/z-918-aur-update-check.hook"
 
 }
 
