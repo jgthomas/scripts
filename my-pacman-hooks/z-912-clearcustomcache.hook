@@ -8,4 +8,4 @@ Target = *
 [Action]
 Description = Custom: Keep the last cache and the currently installed
 When = PostTransaction
-Exec = /usr/bin/paccache -rvk2 -c /home/james/hetznerNextcloud/custom
+Exec = /usr/bin/paccache -rvk2 -c /srv/custom

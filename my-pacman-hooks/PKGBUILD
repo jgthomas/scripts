@@ -1,5 +1,5 @@
 pkgname=my-pacman-hooks
-pkgver=1.17
+pkgver=1.19
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
@@ -21,8 +21,8 @@ md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
 
         install -Dm 644 "$srcdir/z-910-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/z-910-clearcache.hook"
-        install -Dm 644 "$srcdir/z-911-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/z-912-clearaurcache.hook"
-        install -Dm 644 "$srcdir/z-912-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/z-911-clearcustomcache.hook"
+        install -Dm 644 "$srcdir/z-911-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/z-911-clearaurcache.hook"
+        install -Dm 644 "$srcdir/z-912-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/z-912-clearcustomcache.hook"
         install -Dm 644 "$srcdir/z-913-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/z-913-mirrorupgrade.hook"
         install -Dm 644 "$srcdir/z-914-systemd-boot.hook" "$pkgdir/etc/pacman.d/hooks/z-914-systemd-boot.hook"
         install -Dm 644 "$srcdir/z-915-pacman-foreign.hook" "$pkgdir/etc/pacman.d/hooks/z-915-pacman-foreign.hook"
