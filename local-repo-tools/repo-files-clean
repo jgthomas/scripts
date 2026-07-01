@@ -19,7 +19,7 @@ echo "--- Searching for orphan files in $REPO_DIR (Metadata Verified) ---"
 registered_names=()
 while read -r pkg_dir; do
     [ -z "$pkg_dir" ] && continue
-    # Extract official %NAME% from the database's desc file
+
     pkg_name=$(bsdtar -xOf "$DB_FILE" "$pkg_dir/desc" | sed -n '/%NAME%/,/%/p' | sed '1d;$d')
     registered_names+=("$pkg_name")
 done < <(bsdtar -tf "$DB_FILE" | grep -v 'desc' | grep -v 'files' | cut -d/ -f1)
