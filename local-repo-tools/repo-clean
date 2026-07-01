@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <repo-name>"
+    exit 1
+fi
+
+REPO_NAME="$1"
+
+GHOST_HUNTER="./repo-db-clean"
+ORPHAN_CLEANER="./repo-files-clean"
+
+if [ ! -f "$GHOST_HUNTER" ] || [ ! -f "$ORPHAN_CLEANER" ]; then
+    echo "Error: Required maintenance scripts not found"
+    exit 1
+fi
+
+echo "=== Starting Maintenance for: $REPO_NAME ==="
+
+echo "[1/2] Running Ghost Hunter..."
+"$GHOST_HUNTER" "$REPO_NAME"
+if [ $? -ne 0 ]; then
+    echo "Ghost Hunter failed. Aborting."
+    exit 1
+fi
+
+echo "[2/2] Running Orphan Cleaner..."
+"$ORPHAN_CLEANER" "$REPO_NAME"
+if [ $? -ne 0 ]; then
+    echo "Orphan Cleaner failed."
+    exit 1
+fi
+
+echo "=== Maintenance Complete for $REPO_NAME ==="

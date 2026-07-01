@@ -1,0 +1,72 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <repo-name>"
+    exit 1
+fi
+
+REPO_NAME="$1"
+REPO_DIR="/srv/$REPO_NAME"
+DB_FILE="$REPO_DIR/$REPO_NAME.db.tar.gz"
+
+if [ ! -d "$REPO_DIR" ]; then
+    echo "Error: Directory $REPO_DIR does not exist."
+    exit 1
+fi
+
+echo "--- Searching for orphan files in $REPO_DIR (Metadata Verified) ---"
+
+registered_names=()
+while read -r pkg_dir; do
+    [ -z "$pkg_dir" ] && continue
+    # Extract official %NAME% from the database's desc file
+    pkg_name=$(bsdtar -xOf "$DB_FILE" "$pkg_dir/desc" | sed -n '/%NAME%/,/%/p' | sed '1d;$d')
+    registered_names+=("$pkg_name")
+done < <(bsdtar -tf "$DB_FILE" | grep -v 'desc' | grep -v 'files' | cut -d/ -f1)
+
+orphans=()
+for file in "$REPO_DIR"/*.pkg.tar.*; do
+    [ -e "$file" ] || continue
+
+    filename=$(basename "$file")
+    is_orphan=true
+
+    for pkg_name in "${registered_names[@]}"; do
+        case "$filename" in
+            "$pkg_name"-*)
+                is_orphan=false
+                break
+                ;;
+        esac
+    done
+
+    if [ "$is_orphan" = true ]; then
+        orphans+=("$filename")
+    fi
+done
+
+if [ ${#orphans[@]} -eq 0 ]; then
+    echo "No orphan files found. Directory is clean!"
+    exit 0
+fi
+
+echo "Found the following ${#orphans[@]} orphan files:"
+for orphan in "${orphans[@]}"; do
+    echo "  - $orphan"
+done
+
+printf "Delete these orphan files from disk? [y/N]: "
+read -r confirm
+
+case "${confirm,,}" in
+    y|yes)
+        for orphan in "${orphans[@]}"; do
+            echo "Deleting $orphan..."
+            rm "$REPO_DIR/$orphan"
+        done
+        echo "Cleanup complete."
+        ;;
+    *)
+        echo "Operation cancelled."
+        ;;
+esac
