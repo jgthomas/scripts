@@ -7,7 +7,7 @@ url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('libarchive')
 source=("repo-clean" "repo-db-clean" "repo-files-clean")
-md5sums=('SKIP SKIP SKIP')
+md5sums=('SKIP' 'SKIP' 'SKIP')
 
 
 package() {
