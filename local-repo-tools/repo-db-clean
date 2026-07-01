@@ -1,0 +1,57 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 <repo-name>"
+    exit 1
+fi
+
+REPO_NAME="$1"
+REPO_DIR="/srv/$REPO_NAME"
+DB_FILE="$REPO_DIR/$REPO_NAME.db.tar.gz"
+
+if [ ! -d "$REPO_DIR" ]; then
+    echo "Error: Directory $REPO_DIR does not exist."
+    exit 1
+fi
+
+echo "--- Searching for ghost entries in $REPO_NAME (Array/Metadata Verified) ---"
+
+registered_names=()
+while read -r pkg_dir; do
+    [ -z "$pkg_dir" ] && continue
+    pkg_name=$(bsdtar -xOf "$DB_FILE" "$pkg_dir/desc" | sed -n '/%NAME%/,/%/p' | sed '1d;$d')
+    registered_names+=("$pkg_name")
+done < <(bsdtar -tf "$DB_FILE" | grep -v 'desc' | grep -v 'files' | cut -d/ -f1)
+
+ghosts=()
+for pkg_name in "${registered_names[@]}"; do
+    if ! ls "$REPO_DIR/$pkg_name"-*.pkg.tar.* >/dev/null 2>&1; then
+        ghosts+=("$pkg_name")
+    fi
+done
+
+if [ ${#ghosts[@]} -eq 0 ]; then
+    echo "Database is clean!"
+    exit 0
+fi
+
+echo "Found the following ${#ghosts[@]} ghost entries:"
+for ghost in "${ghosts[@]}"; do
+    echo "  - $ghost"
+done
+
+printf "Run 'repo-remove' on these entries? [y/N]: "
+read -r confirm
+
+case "${confirm,,}" in
+    y|yes)
+        for ghost in "${ghosts[@]}"; do
+            echo "Removing $ghost..."
+            repo-remove "$DB_FILE" "$ghost"
+        done
+        echo "Cleanup complete."
+        ;;
+    *)
+        echo "Operation cancelled."
+        ;;
+esac
