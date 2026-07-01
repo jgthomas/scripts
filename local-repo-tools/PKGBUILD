@@ -5,16 +5,18 @@ pkgdesc="Manage local pacman repos"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('')
-source=("${pkgname}")
-md5sums=('SKIP')
+depends=('libarchive')
+source=("repo-clean repo-db-clean repo-files-clean")
+md5sums=('SKIP SKIP SKIP')
 
 
 package() {
 
-        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+        install -d "$pkgdir/usr/bin"
 
-        chmod +x "$pkgdir/usr/bin/${pkgname}"
+        install -m755 "$srcdir/repo-clean" "$pkgdir/usr/bin/repo-clean"
+        install -m755 "$srcdir/repo-db-clean" "$pkgdir/usr/bin/repo-db-clean"
+        install -m755 "$srcdir/repo-files-clean" "$pkgdir/usr/bin/repo-files-clean"
 
 }
 
