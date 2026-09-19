@@ -8,4 +8,5 @@ Target = *
 [Action]
 Description = Checking for updates to AUR packages
 When = PostTransaction
-Exec = /usr/bin/bash -c 'aurpacs=$(aur repo -d aur_packages -u); if [[ -z $aurpacs ]]; then echo "==> no AUR packages to update"; else echo "$aurpacs"; fi'
+Depends = aurutils
+Exec = /usr/bin/bash -c 'if aurpacs=$(/usr/bin/timeout --kill-after=5s 20s /usr/bin/aur repo -d aur_packages -u); then if [[ -z $aurpacs ]]; then /usr/bin/echo "==> no AUR packages to update"; else /usr/bin/echo "$aurpacs"; fi; else status=$?; if (( status == 124 )); then /usr/bin/echo "==> AUR update check timed out after 20 seconds"; else /usr/bin/echo "==> AUR update check failed (exit status $status)"; fi; fi'
