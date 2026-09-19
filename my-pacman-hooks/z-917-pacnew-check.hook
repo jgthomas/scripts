@@ -9,4 +9,4 @@ Target = *
 Description = Checking for .pacnew and .pacsave files
 When = PostTransaction
 Depends = pacman-contrib
-Exec = /usr/bin/bash -c 'pacnews=$(pacdiff -o); if [[ -z $pacnews ]]; then echo "==> no .pacnew or .pacsave files found"; else echo "$pacnews"; fi'
+Exec = /usr/bin/bash -c 'pacnews=$(/usr/bin/pacdiff --find -o); if [[ -z $pacnews ]]; then echo "==> no .pacnew or .pacsave files found"; else echo "$pacnews"; fi'
