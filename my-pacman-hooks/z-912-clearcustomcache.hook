@@ -8,4 +8,5 @@ Target = *
 [Action]
 Description = Custom: Keep the last cache and the currently installed
 When = PostTransaction
+Depends = pacman-contrib
 Exec = /usr/bin/paccache -rvk2 -c /srv/custom

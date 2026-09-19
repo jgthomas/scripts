@@ -8,4 +8,5 @@ Target = *
 [Action]
 Description = Official: Keep the latest uninstalled package cache entry
 When = PostTransaction
+Depends = pacman-contrib
 Exec = /usr/bin/paccache -rvuk1

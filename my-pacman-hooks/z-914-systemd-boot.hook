@@ -6,4 +6,5 @@ Target = systemd
 [Action]
 Description = Updating systemd-boot
 When = PostTransaction
+Depends = systemd
 Exec = /usr/bin/bootctl update
