@@ -1,8 +1,9 @@
 pkgname=wifi-iwd
-pkgver=1.0
+pkgver=2.1
 pkgrel=1
 pkgdesc="iwctl wrapper for iwd"
 arch=('any')
+depends=('iwd')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 source=("${pkgname}")
@@ -11,8 +12,5 @@ md5sums=('SKIP')
 
 package() {
 
-        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
-
-        chmod +x "$pkgdir/usr/bin/${pkgname}"
+	install -D -m755 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
 }
-

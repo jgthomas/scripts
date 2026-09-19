@@ -1,24 +1,26 @@
-DEVICE="wlan0"
+#!/usr/bin/env bash
+
+# Override this for systems whose wireless interface is not wlan0, for example:
+# WIFI_IWD_DEVICE=wlp2s0 wifi-iwd networks
+DEVICE="${WIFI_IWD_DEVICE:-wlan0}"
+program="${0##*/}"
 
 
 networks() {
-        iwctl station $DEVICE scan && iwctl station $DEVICE get-networks
+	iwctl station "$DEVICE" scan && iwctl station "$DEVICE" get-networks
 }
 
 
 connect() {
-        ssid="$1"
-        passphrase="$2"
+	local ssid="$1"
 
-        if [[ -z $ssid ]]; then
-                usage && exit 1;
-        fi
+	if [[ -z $ssid ]]; then
+		printf '%s\n' "Error: NETWORK is required." >&2
+		usage >&2
+		return 1
+	fi
 
-        if [[ -z $passphrase ]]; then
-                iwctl station $DEVICE connect $ssid
-        else
-                iwctl --passphrase=$passphrase station $DEVICE connect $ssid
-        fi
+	iwctl station "$DEVICE" connect "$ssid"
 }
 
 
@@ -28,38 +30,47 @@ known() {
 
 
 usage() {
-        printf "\nUsage: $program command [network] [password]\n\n"
-        printf '%-10s%-10s%-15s%-10s \n\n' "help" "" "" "display this message"
-        printf '%-10s%-10s%-15s%-10s \n' "networks" "" "" "show available networks"
-        printf '%-10s%-10s%-15s%-10s \n' "known" "" "" "show known networks"
-        printf '%-10s%-10s%-15s%-10s \n' "connect" "NETWORK" "" "connect to known network"
-        printf '%-10s%-10s%-15s%-10s \n' "connect" "NETWORK" "PASSWORD" "connect to new network"
+	printf '\nUsage: %s command [network]\n\n' "$program"
+	printf '%-10s %-10s %-28s %s\n\n' "help" "" "" "display this message"
+	printf '%-10s %-10s %-28s %s\n' "networks" "" "" "show available networks"
+	printf '%-10s %-10s %-28s %s\n' "known" "" "" "show known networks"
+	printf '%-10s %-10s %-28s %s\n' "connect" "NETWORK" "" "connect (prompts if needed)"
 }
 
 
-operation="$1"
-network="$2"
-password="$3"
+operation="${1:-}"
+network="${2:-}"
 
 
-[[ -z $operation ]] && { usage; exit 1; }
+if [[ -z $operation ]]; then
+	usage >&2
+	exit 1
+fi
+
+if [[ $operation == connect && $# -gt 2 ]]; then
+	printf '%s\n' 'Error: connect accepts only NETWORK; iwctl prompts for a password if needed.' >&2
+	usage >&2
+	exit 1
+fi
 
 
 case $operation in
-        "networks")
-                networks
-                exit 0
-                ;;
-        "connect")
-                connect $network $password
-                exit 0
-                ;;
-        "known")
-                known
-                exit 0
-                ;;
-        "help")
-                usage
-                exit 0
-                ;;
+	help|--help|-h) usage ;;
+	networks|connect|known)
+		if ! command -v iwctl >/dev/null 2>&1; then
+			printf '%s\n' "Error: iwctl was not found; install and start iwd first." >&2
+			exit 127
+		fi
+
+		case $operation in
+			networks) networks ;;
+			connect) connect "$network" ;;
+			known) known ;;
+		esac
+		;;
+	*)
+		printf '%s\n' "Error: unknown command: $operation" >&2
+		usage >&2
+		exit 1
+		;;
 esac
