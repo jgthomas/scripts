@@ -1,11 +1,11 @@
 pkgname=my-pacman-hooks
-pkgver=1.19
+pkgver=1.20
 pkgrel=1
 pkgdesc="Hooks for pacman"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('pacman-contrib' 'reflector' 'aurutils')
+depends=('pacman-contrib' 'aurutils')
 source=("z-910-clearcache.hook"
         "z-910z-clearuninstalledcache.hook"
         "z-911-clearaurcache.hook"
