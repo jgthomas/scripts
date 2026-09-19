@@ -6,7 +6,7 @@ Type = Package
 Target = *
 
 [Action]
-Description = Official: Keep the latest uninstalled package cache entry
+Description = Official: Remove all uninstalled package cache entries
 When = PostTransaction
 Depends = pacman-contrib
-Exec = /usr/bin/paccache -rvuk1
+Exec = /usr/bin/paccache -rvuk0
