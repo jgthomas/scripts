@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Remove
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Official: Keep the latest uninstalled package cache entry
+When = PostTransaction
+Exec = /usr/bin/paccache -rvuk1

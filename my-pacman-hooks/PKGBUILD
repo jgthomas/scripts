@@ -7,6 +7,7 @@ url="https://github.com/jgthomas/scripts"
 license=('GPL3')
 depends=('pacman-contrib' 'reflector')
 source=("z-910-clearcache.hook"
+        "z-910z-clearuninstalledcache.hook"
         "z-911-clearaurcache.hook"
         "z-912-clearcustomcache.hook"
         "z-913-mirrorupgrade.hook"
@@ -15,12 +16,13 @@ source=("z-910-clearcache.hook"
         "z-916-pacman-unrequired.hook"
         "z-917-pacnew-check.hook"
         "z-918-aur-update-check.hook")
-md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
 
         install -Dm 644 "$srcdir/z-910-clearcache.hook" "$pkgdir/etc/pacman.d/hooks/z-910-clearcache.hook"
+        install -Dm 644 "$srcdir/z-910z-clearuninstalledcache.hook" "$pkgdir/etc/pacman.d/hooks/z-910z-clearuninstalledcache.hook"
         install -Dm 644 "$srcdir/z-911-clearaurcache.hook" "$pkgdir/etc/pacman.d/hooks/z-911-clearaurcache.hook"
         install -Dm 644 "$srcdir/z-912-clearcustomcache.hook" "$pkgdir/etc/pacman.d/hooks/z-912-clearcustomcache.hook"
         install -Dm 644 "$srcdir/z-913-mirrorupgrade.hook" "$pkgdir/etc/pacman.d/hooks/z-913-mirrorupgrade.hook"
@@ -31,5 +33,3 @@ package() {
         install -Dm 644 "$srcdir/z-918-aur-update-check.hook" "$pkgdir/etc/pacman.d/hooks/z-918-aur-update-check.hook"
 
 }
-
-
