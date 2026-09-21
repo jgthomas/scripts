@@ -5,13 +5,12 @@ REPO_NAME="custom.db.tar.gz"
 PACKAGE_NAME="$1"
 
 
-mv $PACKAGE_NAME $REPO_DIR && echo "Package moved to $REPO_DIR"
+mv "$PACKAGE_NAME" "$REPO_DIR" && echo "Package moved to $REPO_DIR"
 
 echo
 
-repo-add $REPO_DIR/$REPO_NAME $REPO_DIR/$PACKAGE_NAME
+repo-add "$REPO_DIR/$REPO_NAME" "$REPO_DIR/$PACKAGE_NAME"
 
 echo
 
 rm -rf src/ pkg/ && echo "Deleted build directories"
-

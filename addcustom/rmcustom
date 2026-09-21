@@ -5,4 +5,4 @@ REPO_NAME="custom.db.tar.gz"
 PACKAGE_NAME="$1"
 
 
-repo-remove $REPO_DIR/$REPO_NAME $PACKAGE_NAME && echo "Removed: '$PACKAGE_NAME'"
+repo-remove "$REPO_DIR/$REPO_NAME" "$PACKAGE_NAME" && echo "Removed: '$PACKAGE_NAME'"
