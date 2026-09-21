@@ -4,5 +4,9 @@ REPO_DIR="/srv/custom"
 REPO_NAME="custom.db.tar.gz"
 PACKAGE_NAME="$1"
 
+if [[ -z "$PACKAGE_NAME" ]]; then
+        echo "Must supply a package name" >&2
+        exit 1
+fi
 
 repo-remove "$REPO_DIR/$REPO_NAME" "$PACKAGE_NAME" && echo "Removed: '$PACKAGE_NAME'"

@@ -4,6 +4,10 @@ REPO_DIR="/srv/custom"
 REPO_NAME="custom.db.tar.gz"
 PACKAGE_NAME="$1"
 
+if [[ -z "$PACKAGE_NAME" ]]; then
+        echo "Must supply a package file" >&2
+        exit 1
+fi
 
 mv "$PACKAGE_NAME" "$REPO_DIR" && echo "Package moved to $REPO_DIR"
 
