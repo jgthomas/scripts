@@ -9,11 +9,35 @@ if [[ -z "$PACKAGE_NAME" ]]; then
         exit 1
 fi
 
-mv "$PACKAGE_NAME" "$REPO_DIR" && echo "Package moved to $REPO_DIR"
+if [[ ! -f "$PACKAGE_NAME" ]]; then
+        echo "Package file not found: $PACKAGE_NAME" >&2
+        exit 1
+fi
 
-echo
+PACKAGE_DEST="$REPO_DIR/${PACKAGE_NAME##*/}"
 
-repo-add "$REPO_DIR/$REPO_NAME" "$REPO_DIR/$PACKAGE_NAME"
+if [[ -e "$PACKAGE_DEST" || -L "$PACKAGE_DEST" ]]; then
+        echo "Package already exists in repository: $PACKAGE_DEST" >&2
+        exit 1
+fi
+
+if ! cp -- "$PACKAGE_NAME" "$PACKAGE_DEST"; then
+        echo "Failed to copy package to $REPO_DIR" >&2
+        exit 1
+fi
+
+if ! repo-add "$REPO_DIR/$REPO_NAME" "$PACKAGE_DEST"; then
+        rm -- "$PACKAGE_DEST"
+        echo "Failed to add package; original remains at $PACKAGE_NAME" >&2
+        exit 1
+fi
+
+if ! rm -- "$PACKAGE_NAME"; then
+        echo "Package added, but failed to remove original: $PACKAGE_NAME" >&2
+        exit 1
+fi
+
+echo "Package moved to $REPO_DIR"
 
 echo
 
