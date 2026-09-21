@@ -1,5 +1,5 @@
 pkgname=addcustom
-pkgver=1.5
+pkgver=1.6
 pkgrel=1
 pkgdesc="Add a package to the custom repository"
 arch=('any')
@@ -12,12 +12,8 @@ md5sums=('SKIP' 'SKIP')
 
 package() {
 
-        install -D -m644 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
-        install -D -m644 "$srcdir/rmcustom" "$pkgdir/usr/bin/rmcustom"
-
-        chmod +x "$pkgdir/usr/bin/${pkgname}"
-        chmod +x "$pkgdir/usr/bin/rmcustom"
+        install -D -m755 "$srcdir/${pkgname}" "$pkgdir/usr/bin/${pkgname}"
+        install -D -m755 "$srcdir/rmcustom" "$pkgdir/usr/bin/rmcustom"
 
 }
-
 
