@@ -1,5 +1,5 @@
 pkgname=duckdns
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc="Dynamic DNS with Duck DNS"
 arch=('any')
