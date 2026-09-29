@@ -2,7 +2,8 @@
 Description=Duck DNS Updater
 
 [Service]
-Type=simple
-ExecStart=/bin/bash /usr/bin/duckdns >/dev/null 2>&1
-
+Type=oneshot
+ExecStart=/usr/bin/duckdns
+StandardOutput=null
+StandardError=null
 
