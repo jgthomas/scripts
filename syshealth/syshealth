@@ -47,16 +47,11 @@ check_syshealth() {
 
         printf '\n%s\n\n' "Running system health check..."
         failed_unit_check
-        foreign_packages_check
-        unrequired_dependencies_check
-        pacnew_files_check
-        pacsave_files_check
         clock_synchronized_check
         disk_space_home_check
         disk_space_root_check
         ram_free_check
         swap_used_check
-        updates_available_check
 }
 
 
@@ -64,50 +59,6 @@ failed_unit_check() {
         printf '%s' "Failed unit files: "
         local command="systemctl --failed"
         local good_code=0
-        local exit_code
-        $command > /dev/null 2>&1
-        exit_code=$?
-        output_status $exit_code $good_code $command
-}
-
-
-foreign_packages_check() {
-        printf '%s' "Foreign packages: "
-        local command="pacman -Qm"
-        local good_code=1
-        local exit_code
-        $command > /dev/null 2>&1
-        exit_code=$?
-        output_status $exit_code $good_code $command
-}
-
-
-unrequired_dependencies_check() {
-        printf '%s' "Unrequired dependencies: "
-        local command="pacman -Qttd"
-        local good_code=1
-        local exit_code
-        $command > /dev/null 2>&1
-        exit_code=$?
-        output_status $exit_code $good_code $command
-}
-
-
-pacnew_files_check() {
-        printf '%s' "Unhandled pacnew files: "
-        local command="locate *.pacnew"
-        local good_code=1
-        local exit_code
-        $command > /dev/null 2>&1
-        exit_code=$?
-        output_status $exit_code $good_code $command
-}
-
-
-pacsave_files_check() {
-        printf '%s' "Unhandled pacsave files: "
-        local command="locate *.pacsave"
-        local good_code=1
         local exit_code
         $command > /dev/null 2>&1
         exit_code=$?
@@ -154,13 +105,5 @@ clock_synchronized_check() {
 }
 
 
-updates_available_check() {
-        local count=$(checkupdates | awk 'END { print NR }')
-        printf '%s\n' "Available updates: $count"
-        if [[ $count -gt 0 ]]; then checkupdates; fi
-}
-
-
 check_syshealth $@
-
 

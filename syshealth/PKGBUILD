@@ -5,7 +5,7 @@ pkgdesc="Quick health check for Arch system"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('pacman-contrib' 'ncurses')
+depends=('ncurses')
 source=("${pkgname}")
 md5sums=('SKIP')
 
@@ -17,5 +17,4 @@ package() {
         chmod +x "$pkgdir/usr/bin/${pkgname}"
 
 }
-
 
