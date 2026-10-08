@@ -15,6 +15,8 @@ CORE_COUNT=$(nproc)
 
 OK="OK"
 PROBLEM="ACTION"
+DISK_WARN_PERCENT=90
+INODE_WARN_PERCENT=90
 
 
 print_ok() {
@@ -33,9 +35,10 @@ check_syshealth() {
         printf '\n%s\n\n' "Running system health check..."
         failed_unit_check
         clock_synchronized_check
+        required_mounts_check
         disk_space_home_check
         disk_space_root_check
-        ram_free_check
+        ram_used_check
         swap_used_check
 }
 
@@ -57,9 +60,93 @@ failed_unit_check() {
 }
 
 
+mounted_source_matches() {
+        local mount=$1 source=$2 options=$3 field=SOURCE expected=$2 actual resolved_source resolved_actual
+        if [[ ,$options, == *,bind,* || ,$options, == *,rbind,* ]]; then
+                resolved_source=$(stat -Lc '%d:%i' -- "$source" 2>/dev/null) || return 1
+                resolved_actual=$(stat -Lc '%d:%i' -- "$mount" 2>/dev/null) || return 1
+                [[ $resolved_source == "$resolved_actual" ]]
+                return
+        fi
+        case $source in
+                UUID=*) field=UUID; expected=${source#UUID=} ;;
+                LABEL=*) field=LABEL; expected=${source#LABEL=} ;;
+                PARTUUID=*) field=PARTUUID; expected=${source#PARTUUID=} ;;
+                PARTLABEL=*) field=PARTLABEL; expected=${source#PARTLABEL=} ;;
+                none) return 0 ;;
+        esac
+
+        actual=$(findmnt --mountpoint "$mount" --raw --noheadings --output "$field" 2>/dev/null) || return 1
+        printf -v actual '%b' "$actual"
+        if [[ $field == SOURCE && $source == /* ]]; then
+                resolved_source=$(readlink -f -- "$source" 2>/dev/null) || return 1
+                resolved_actual=$(readlink -f -- "$actual" 2>/dev/null) || return 1
+                [[ $resolved_source == "$resolved_actual" ]]
+        else
+                [[ $actual == "$expected" ]]
+        fi
+}
+
+
+required_mounts_check() {
+        local mounts raw_mount raw_source mount source fstype options mounted_type
+        # Raw output keeps whitespace escaped so each fstab field stays intact.
+        if ! mounts=$(findmnt --fstab --raw --noheadings --output TARGET,SOURCE,FSTYPE,OPTIONS 2>&1); then
+                printf '%s' "Required mounts: "
+                print_problem
+                if [[ $RUN_COMMANDS = true ]]; then printf '%s\n' "$mounts"; fi
+                return
+        fi
+
+        while read -r raw_mount raw_source fstype options; do
+                [[ -z $raw_mount || $fstype == swap ]] && continue
+                [[ ,$options, == *,noauto,* || ,$options, == *,nofail,* ]] && continue
+                printf -v mount '%b' "$raw_mount"
+                printf -v source '%b' "$raw_source"
+                printf '%s' "Required mount ${BOLD}$mount${NORMAL}: "
+                if mounted_type=$(findmnt --mountpoint "$mount" --noheadings --output FSTYPE 2>/dev/null) &&
+                        [[ $fstype == auto || $fstype == none || $mounted_type == "$fstype" ]] &&
+                        mounted_source_matches "$mount" "$source" "$options"; then
+                        print_ok
+                        if [[ $mount != / && $mount != /home ]]; then disk_space_check "$mount"; fi
+                else
+                        print_problem
+                        if [[ $RUN_COMMANDS = true && -n $mounted_type ]]; then
+                                printf '  Expected %s (%s); mounted: ' "$source" "$fstype"
+                                findmnt --mountpoint "$mount" --noheadings --output SOURCE,FSTYPE
+                        fi
+                fi
+        done <<< "$mounts"
+}
+
+
+usage_check() {
+        local label=$1 mount=$2 df_option=$3 warn_percent=$4
+        local output percent
+        printf '%s' "$label ${BOLD}$mount${NORMAL}: "
+        if output=$(df "$df_option" "$mount" 2>&1); then
+                percent=$(awk 'NR == 2 { print $5 }' <<< "$output")
+                if [[ $percent =~ ^[0-9]+%$ ]]; then
+                        printf '%s ' "$percent"
+                        if [[ ${percent%%%} -ge $warn_percent ]]; then print_problem; else print_ok; fi
+                elif [[ $percent == - ]]; then
+                        printf '%s\n' "N/A"
+                else
+                        print_problem
+                        if [[ $RUN_COMMANDS = true ]]; then printf '%s\n' "$output"; fi
+                fi
+        else
+                print_problem
+                if [[ $RUN_COMMANDS = true ]]; then printf '%s\n' "$output"; fi
+        fi
+}
+
+
 disk_space_check() {
-        printf '%s' "Disk space used ${BOLD}$1${NORMAL}: "
-        df -hT "$1" | awk 'FNR == 2 { print $6 }'
+        usage_check "Disk space used" "$1" -P "$DISK_WARN_PERCENT"
+        if [[ $1 != /boot ]]; then
+                usage_check "Inodes used" "$1" -Pi "$INODE_WARN_PERCENT"
+        fi
 }
 
 
@@ -73,9 +160,9 @@ disk_space_root_check() {
 }
 
 
-ram_free_check() {
-        printf '%s' "Available memory: "
-        free -h --giga | awk 'FNR == 2 { print $7 }'
+ram_used_check() {
+        printf '%s' "Memory used: "
+        free -h --giga | awk 'FNR == 2 { print $3 }'
 }
 
 
