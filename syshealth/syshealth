@@ -27,21 +27,6 @@ print_problem() {
 }
 
 
-output_status() {
-        local exit_code=$1
-        local good_code=$2
-        shift 2
-        local command=$@
-
-        if [[ $exit_code -eq $good_code ]]; then
-                print_ok
-        else
-                print_problem
-                if [[ $RUN_COMMANDS = true ]]; then $command; fi
-        fi
-}
-
-
 check_syshealth() {
         [[ "$1" == "quiet" ]] && RUN_COMMANDS=false || RUN_COMMANDS=true
 
@@ -57,12 +42,18 @@ check_syshealth() {
 
 failed_unit_check() {
         printf '%s' "Failed unit files: "
-        local command="systemctl --failed"
-        local good_code=0
-        local exit_code
-        $command > /dev/null 2>&1
-        exit_code=$?
-        output_status $exit_code $good_code $command
+        local failed_units
+        if failed_units=$(systemctl list-units --failed --no-legend --no-pager 2>&1); then
+                if [[ -z $failed_units ]]; then
+                        print_ok
+                else
+                        print_problem
+                        if [[ $RUN_COMMANDS = true ]]; then printf '%s\n' "$failed_units"; fi
+                fi
+        else
+                print_problem
+                if [[ $RUN_COMMANDS = true ]]; then printf '%s\n' "$failed_units"; fi
+        fi
 }
 
 
@@ -94,16 +85,23 @@ swap_used_check() {
 }
 
 
-clock_synchronized_check() {
-        printf '%s' "System clock synchronized: "
-        local sync=$(timedatectl | awk 'FNR == 5 { print $4 }')
-        [[ "$sync" == "yes" ]] && print_ok || print_problem
+clock_property_check() {
+        local label=$1
+        local property=$2
+        local value
+        printf '%s' "$label: "
+        if value=$(timedatectl show --property="$property" --value 2>&1); then
+                [[ $value == yes ]] && print_ok || print_problem
+        else
+                print_problem
+                if [[ $RUN_COMMANDS = true ]]; then printf '%s\n' "$value"; fi
+        fi
+}
 
-        printf '%s' "Network time protocol active: "
-        local ntp=$(timedatectl | awk 'FNR == 6 { print $3 }')
-        [[ "$ntp" == "active" ]] && print_ok || print_problem
+clock_synchronized_check() {
+        clock_property_check "System clock synchronized" NTPSynchronized
+        clock_property_check "Network time protocol active" NTP
 }
 
 
 check_syshealth $@
-
