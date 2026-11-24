@@ -1,10 +1,11 @@
 pkgname=addcustom
-pkgver=1.6
+pkgver=1.7
 pkgrel=1
 pkgdesc="Add a package to the custom repository"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
+depends=('local-repo-tools>=1.2-1')
 source=("${pkgname}"
         "rmcustom")
 md5sums=('SKIP' 'SKIP')

@@ -1,13 +1,13 @@
 pkgname=local-repo-tools
-pkgver=1.1
+pkgver=1.2
 pkgrel=1
 pkgdesc="Manage local pacman repos"
 arch=('any')
 url="https://github.com/jgthomas/scripts"
 license=('GPL3')
-depends=('libarchive')
-source=("repo-clean" "repo-db-clean" "repo-files-clean")
-md5sums=('SKIP' 'SKIP' 'SKIP')
+depends=('gnupg>=2.4.4' 'libarchive' 'pacman')
+source=("repo-clean" "repo-db-clean" "repo-files-clean" "repo-publish")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 
 package() {
@@ -17,6 +17,7 @@ package() {
         install -m755 "$srcdir/repo-clean" "$pkgdir/usr/bin/repo-clean"
         install -m755 "$srcdir/repo-db-clean" "$pkgdir/usr/bin/repo-db-clean"
         install -m755 "$srcdir/repo-files-clean" "$pkgdir/usr/bin/repo-files-clean"
+        install -m755 "$srcdir/repo-publish" "$pkgdir/usr/bin/repo-publish"
 
 }
 

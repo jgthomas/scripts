@@ -9,4 +9,4 @@ if [[ -z "$PACKAGE_NAME" ]]; then
         exit 1
 fi
 
-repo-remove "$REPO_DIR/$REPO_NAME" "$PACKAGE_NAME" && echo "Removed: '$PACKAGE_NAME'"
+repo-publish remove "$REPO_DIR/$REPO_NAME" "$PACKAGE_NAME" && echo "Removed: '$PACKAGE_NAME'"
